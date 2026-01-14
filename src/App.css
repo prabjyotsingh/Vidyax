@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* App theme tweaks */
 :root {
@@ -24,18 +26,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.card {
-  @apply bg-white rounded-xl shadow-sm border border-gray-100;
-}
+@layer components {
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100;
+  }
 
-.btn-primary {
-  @apply inline-flex items-center justify-center px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition;
-}
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition;
+  }
 
-.progress-track {
-  @apply h-2 w-full rounded-full bg-gray-200 overflow-hidden;
-}
+  .progress-track {
+    @apply h-2 w-full rounded-full bg-gray-200 overflow-hidden;
+  }
 
-.progress-fill {
-  @apply h-full rounded-full bg-indigo-600;
+  .progress-fill {
+    @apply h-full rounded-full bg-indigo-600;
+  }
 }
