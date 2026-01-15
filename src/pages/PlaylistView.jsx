@@ -5,12 +5,21 @@ export default function PlaylistView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentVideo, setCurrentVideo] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(() => {
+    const saved = localStorage.getItem(`playlist_${id}_progress`);
+    return saved ? parseFloat(saved) : 0;
+  });
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [videosCompleted, setVideosCompleted] = useState(0);
+  const [videosCompleted, setVideosCompleted] = useState(() => {
+    const saved = localStorage.getItem(`playlist_${id}_completed`);
+    return saved ? parseInt(saved) : 0;
+  });
   const [totalVideos] = useState(24);
-  const [timeSpent, setTimeSpent] = useState(0);
+  const [timeSpent, setTimeSpent] = useState(() => {
+    const saved = localStorage.getItem(`playlist_${id}_timeSpent`);
+    return saved ? parseFloat(saved) : 0;
+  });
   const playerRef = useRef(null);
   const intervalRef = useRef(null);
 
@@ -56,7 +65,13 @@ export default function PlaylistView() {
           const videoProgress = (current / total) * 100;
           const baseProgress = (videosCompleted / totalVideos) * 100;
           const currentVideoContribution = (1 / totalVideos) * 100 * (videoProgress / 100);
-          setProgress(Math.min(100, baseProgress + currentVideoContribution));
+          const newProgress = Math.min(100, baseProgress + currentVideoContribution);
+          setProgress(newProgress);
+          
+          // Save progress to localStorage
+          localStorage.setItem(`playlist_${id}_progress`, newProgress.toString());
+          localStorage.setItem(`playlist_${id}_completed`, videosCompleted.toString());
+          localStorage.setItem(`playlist_${id}_timeSpent`, timeSpent.toString());
         }
       }, 1000);
     } else {

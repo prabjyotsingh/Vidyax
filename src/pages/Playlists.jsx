@@ -1,27 +1,48 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function Playlists() {
   const navigate = useNavigate();
+  const [playlistProgress, setPlaylistProgress] = useState({});
+  
+  const loadProgress = () => {
+    const progress = {};
+    for (let i = 0; i < 18; i++) {
+      const saved = localStorage.getItem(`playlist_${i}_progress`);
+      progress[i] = saved ? parseFloat(saved) : 0;
+    }
+    setPlaylistProgress(progress);
+  };
+  
+  useEffect(() => {
+    // Load progress initially
+    loadProgress();
+    
+    // Poll localStorage every second to sync with YouTube player
+    const interval = setInterval(loadProgress, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
   
   const playlists = [
-    { id: 0, title: "React.js Complete Course", category: "Web Development", percent: 67, url: "https://www.youtube.com/playlist?list=PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu", thumbnail: "https://i.ytimg.com/vi/CgkZ7MvWUAA/hqdefault.jpg" },
-    { id: 1, title: "Python for Beginners", category: "Programming", percent: 45, url: "", thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop" },
-    { id: 2, title: "UI/UX Design Masterclass", category: "Design", percent: 80, url: "", thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop" },
-    { id: 3, title: "Machine Learning Fundamentals", category: "AI/ML", percent: 23, url: "", thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop" },
-    { id: 4, title: "Digital Marketing Mastery", category: "Marketing", percent: 92, url: "", thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" },
-    { id: 5, title: "Data Science Bootcamp", category: "Data Science", percent: 0, url: "", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" },
-    { id: 6, title: "Node.js & Express Backend", category: "Web Development", percent: 55, url: "", thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop" },
-    { id: 7, title: "Deep Learning with TensorFlow", category: "AI/ML", percent: 38, url: "", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" },
-    { id: 8, title: "Full Stack Web Development", category: "Web Development", percent: 72, url: "", thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" },
-    { id: 9, title: "JavaScript ES6+ Mastery", category: "Programming", percent: 88, url: "", thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop" },
-    { id: 10, title: "Python Data Analysis", category: "Data Science", percent: 61, url: "", thumbnail: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=300&fit=crop" },
-    { id: 11, title: "Neural Networks from Scratch", category: "AI/ML", percent: 15, url: "", thumbnail: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop" },
-    { id: 12, title: "MongoDB Database Design", category: "Databases", percent: 44, url: "", thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop" },
-    { id: 13, title: "Docker & Kubernetes", category: "DevOps", percent: 29, url: "", thumbnail: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=300&fit=crop" },
-    { id: 14, title: "TypeScript Complete Guide", category: "Programming", percent: 76, url: "", thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop" },
-    { id: 15, title: "React Native Mobile Apps", category: "Mobile Development", percent: 33, url: "", thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" },
-    { id: 16, title: "AWS Cloud Practitioner", category: "Cloud Computing", percent: 50, url: "", thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop" },
-    { id: 17, title: "Computer Vision with OpenCV", category: "AI/ML", percent: 20, url: "", thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop" },
+    { id: 0, title: "React.js Complete Course", category: "Web Development", url: "https://www.youtube.com/playlist?list=PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu", thumbnail: "https://i.ytimg.com/vi/CgkZ7MvWUAA/hqdefault.jpg" },
+    { id: 1, title: "Python for Beginners", category: "Programming", url: "", thumbnail: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop" },
+    { id: 2, title: "UI/UX Design Masterclass", category: "Design", url: "", thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop" },
+    { id: 3, title: "Machine Learning Fundamentals", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=300&fit=crop" },
+    { id: 4, title: "Digital Marketing Mastery", category: "Marketing", url: "", thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" },
+    { id: 5, title: "Data Science Bootcamp", category: "Data Science", url: "", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" },
+    { id: 6, title: "Node.js & Express Backend", category: "Web Development", url: "", thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop" },
+    { id: 7, title: "Deep Learning with TensorFlow", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" },
+    { id: 8, title: "Full Stack Web Development", category: "Web Development", url: "", thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" },
+    { id: 9, title: "JavaScript ES6+ Mastery", category: "Programming", url: "", thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop" },
+    { id: 10, title: "Python Data Analysis", category: "Data Science", url: "", thumbnail: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=300&fit=crop" },
+    { id: 11, title: "Neural Networks from Scratch", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop" },
+    { id: 12, title: "MongoDB Database Design", category: "Databases", url: "", thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop" },
+    { id: 13, title: "Docker & Kubernetes", category: "DevOps", url: "", thumbnail: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=300&fit=crop" },
+    { id: 14, title: "TypeScript Complete Guide", category: "Programming", url: "", thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop" },
+    { id: 15, title: "React Native Mobile Apps", category: "Mobile Development", url: "", thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" },
+    { id: 16, title: "AWS Cloud Practitioner", category: "Cloud Computing", url: "", thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop" },
+    { id: 17, title: "Computer Vision with OpenCV", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop" },
   ];
 
   return (
@@ -47,9 +68,13 @@ export default function Playlists() {
             <div className="p-4">
               <div className="text-xs text-indigo-600">{p.category}</div>
               <div className="mt-1 font-medium">{p.title}</div>
-              <div className="mt-3">
-                <div className="progress-track"><div className="progress-fill" style={{ width: `${p.percent}%` }} /></div>
-                <div className="mt-1 text-sm text-gray-500">{p.percent}% complete</div>
+              <div className="mt-3 relative">
+                <div className="progress-track">
+                  <div className="progress-fill" style={{ width: `${playlistProgress[p.id] || 0}%` }} />
+                </div>
+                <div className="absolute bottom-0 right-0 text-xs text-gray-500 bg-white px-1">
+                  {(playlistProgress[p.id] || 0).toFixed(1)}%
+                </div>
               </div>
               <div className="mt-3 flex gap-2">
                 <button 
