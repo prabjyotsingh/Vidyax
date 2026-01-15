@@ -16,10 +16,10 @@ export default function Progress() {
           <h2 className="font-medium">Study Time Distribution</h2>
           <div className="mt-4 space-y-4">
             {[
-              ["Programming",45],
-              ["Design",28],
-              ["Marketing",18],
-              ["Data Science",12],
+              ["Web Development",42],
+              ["AI/ML",35],
+              ["Data Science",28],
+              ["DevOps & Cloud",18],
             ].map(([label,val],i)=> (
               <div key={i}>
                 <div className="flex justify-between text-sm"><span>{label}</span><span>{val}h</span></div>

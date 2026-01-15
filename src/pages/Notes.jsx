@@ -1,8 +1,11 @@
 export default function Notes() {
   const notes = [
-    { title: "React Components", words: 1247, pages: 3, ago: "2 hours ago" },
-    { title: "Python Basics", words: 892, pages: 2, ago: "5 hours ago" },
-    { title: "Design Principles", words: 1523, pages: 4, ago: "1 day ago" },
+    { title: "React Hooks & State Management", words: 1847, pages: 5, ago: "2 hours ago" },
+    { title: "Neural Networks Fundamentals", words: 2134, pages: 6, ago: "5 hours ago" },
+    { title: "Python Data Analysis with Pandas", words: 1623, pages: 4, ago: "1 day ago" },
+    { title: "Docker & Containerization", words: 1289, pages: 3, ago: "1 day ago" },
+    { title: "Node.js API Development", words: 1756, pages: 5, ago: "2 days ago" },
+    { title: "Machine Learning Algorithms", words: 2401, pages: 7, ago: "3 days ago" },
   ];
 
   return (

@@ -55,9 +55,9 @@ export default function Dashboard() {
         <div className="font-medium">Notes Generation Queue</div>
         <div className="mt-3 space-y-2">
           {[
-            ["State Management in React","Processing..."],
-            ["Python Functions & Modules","Queued"],
-            ["Design Systems Introduction","Queued"],
+            ["Neural Networks & Deep Learning","Processing..."],
+            ["React Hooks & State Management","Queued"],
+            ["Docker Containerization Basics","Queued"],
           ].map(([title,status],i)=> (
             <div key={i} className="flex items-center justify-between bg-white rounded-lg border px-3 py-2">
               <div className="text-sm">{title}</div>
