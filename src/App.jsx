@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Playlists from './pages/Playlists';
+import PlaylistView from './pages/PlaylistView';
 import Progress from './pages/Progress';
 import Notes from './pages/Notes';
 import Analytics from './pages/Analytics';
@@ -84,6 +85,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/playlists" element={<Playlists />} />
+          <Route path="/playlist/:id" element={<PlaylistView />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/analytics" element={<Analytics />} />
