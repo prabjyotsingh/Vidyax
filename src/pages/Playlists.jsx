@@ -1,15 +1,24 @@
 export default function Playlists() {
-  const items = Array.from({ length: 9 }).map((_, i) => ({
-    title: [
-      "React.js Complete Course",
-      "Python for Beginners",
-      "UI/UX Design Masterclass",
-      "Machine Learning Fundamentals",
-      "Digital Marketing Mastery",
-      "Data Science Bootcamp",
-    ][i % 6],
-    percent: [67, 45, 80, 23, 92, 0][i % 6],
-  }));
+  const playlists = [
+    { title: "React.js Complete Course", category: "Web Development", percent: 67 },
+    { title: "Python for Beginners", category: "Programming", percent: 45 },
+    { title: "UI/UX Design Masterclass", category: "Design", percent: 80 },
+    { title: "Machine Learning Fundamentals", category: "AI/ML", percent: 23 },
+    { title: "Digital Marketing Mastery", category: "Marketing", percent: 92 },
+    { title: "Data Science Bootcamp", category: "Data Science", percent: 0 },
+    { title: "Node.js & Express Backend", category: "Web Development", percent: 55 },
+    { title: "Deep Learning with TensorFlow", category: "AI/ML", percent: 38 },
+    { title: "Full Stack Web Development", category: "Web Development", percent: 72 },
+    { title: "JavaScript ES6+ Mastery", category: "Programming", percent: 88 },
+    { title: "Python Data Analysis", category: "Data Science", percent: 61 },
+    { title: "Neural Networks from Scratch", category: "AI/ML", percent: 15 },
+    { title: "MongoDB Database Design", category: "Databases", percent: 44 },
+    { title: "Docker & Kubernetes", category: "DevOps", percent: 29 },
+    { title: "TypeScript Complete Guide", category: "Programming", percent: 76 },
+    { title: "React Native Mobile Apps", category: "Mobile Development", percent: 33 },
+    { title: "AWS Cloud Practitioner", category: "Cloud Computing", percent: 50 },
+    { title: "Computer Vision with OpenCV", category: "AI/ML", percent: 20 },
+  ];
 
   return (
     <div className="space-y-6">
@@ -19,11 +28,11 @@ export default function Playlists() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {items.map((p, i) => (
+        {playlists.map((p, i) => (
           <div key={i} className="card overflow-hidden">
             <div className="h-36 bg-gray-100" />
             <div className="p-4">
-              <div className="text-xs text-indigo-600">Programming</div>
+              <div className="text-xs text-indigo-600">{p.category}</div>
               <div className="mt-1 font-medium">{p.title}</div>
               <div className="mt-3">
                 <div className="progress-track"><div className="progress-fill" style={{ width: `${p.percent}%` }} /></div>

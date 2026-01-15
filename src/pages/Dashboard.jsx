@@ -84,10 +84,10 @@ export default function Dashboard() {
           <h2 className="font-medium">Study Time Distribution</h2>
           <div className="mt-3 space-y-3">
             {[
-              ["Programming",45],
-              ["Design",28],
-              ["Marketing",18],
-              ["Data Science",12],
+              ["Web Development",42],
+              ["AI/ML",35],
+              ["Data Science",28],
+              ["DevOps & Cloud",18],
             ].map(([label,val],i)=> (
               <div key={i}>
                 <div className="flex justify-between text-sm"><span>{label}</span><span>{val}h</span></div>
@@ -220,15 +220,22 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {["React.js Complete Course","Python for Beginners","UI/UX Design Masterclass","Machine Learning Fundamentals","Digital Marketing Mastery","Data Science Bootcamp"].map((title, i) => (
+          {[
+            { title: "React.js Complete Course", category: "Web Development", percent: 67 },
+            { title: "Node.js & Express Backend", category: "Web Development", percent: 55 },
+            { title: "Deep Learning with TensorFlow", category: "AI/ML", percent: 38 },
+            { title: "Python Data Analysis", category: "Data Science", percent: 61 },
+            { title: "Full Stack Web Development", category: "Web Development", percent: 72 },
+            { title: "Docker & Kubernetes", category: "DevOps", percent: 29 },
+          ].map((item, i) => (
             <Card key={i} className="overflow-hidden">
               <div className="h-36 bg-gray-100" />
               <div className="p-4">
-                <div className="text-xs text-indigo-600">{["Programming","Design","AI/ML","Marketing","Data Science"][i%5] || "Programming"}</div>
-                <div className="mt-1 font-medium">{title}</div>
+                <div className="text-xs text-indigo-600">{item.category}</div>
+                <div className="mt-1 font-medium">{item.title}</div>
                 <div className="mt-3">
-                  <ProgressBar value={[67,45,80,23,92,0][i]} />
-                  <div className="mt-1 text-sm text-gray-500">{[67,45,80,23,92,0][i]}% complete</div>
+                  <ProgressBar value={item.percent} />
+                  <div className="mt-1 text-sm text-gray-500">{item.percent}% complete</div>
                 </div>
                 <button className="btn-primary mt-3 w-full">Continue Learning</button>
               </div>
