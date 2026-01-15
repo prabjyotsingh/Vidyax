@@ -5,12 +5,12 @@ export default function PlaylistView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentVideo, setCurrentVideo] = useState(0);
-  const [progress, setProgress] = useState(67);
+  const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [videosCompleted, setVideosCompleted] = useState(16);
+  const [videosCompleted, setVideosCompleted] = useState(0);
   const [totalVideos] = useState(24);
-  const [timeSpent, setTimeSpent] = useState(12.5);
+  const [timeSpent, setTimeSpent] = useState(0);
   const playerRef = useRef(null);
   const intervalRef = useRef(null);
 
@@ -117,9 +117,10 @@ export default function PlaylistView() {
           <div className="card overflow-hidden">
             <div className="aspect-video">
               <iframe
+                id="youtube-player"
                 width="100%"
                 height="100%"
-                src={`https://www.youtube.com/embed/videoseries?list=${playlist.playlistId}&index=${currentVideo + 1}`}
+                src={`https://www.youtube.com/embed/videoseries?list=${playlist.playlistId}&index=${currentVideo + 1}&enablejsapi=1`}
                 title={playlist.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -129,9 +130,20 @@ export default function PlaylistView() {
             </div>
             <div className="p-4">
               <h3 className="font-semibold text-lg">Currently Playing</h3>
-              <p className="text-sm text-gray-600 mt-1">Video {currentVideo + 1} of playlist</p>
+              <p className="text-sm text-gray-600 mt-1">
+                Video {currentVideo + 1} of playlist
+                {duration > 0 && ` • ${formatTime(currentTime)} / ${formatTime(duration)}`}
+              </p>
               <div className="mt-4 flex gap-2">
-                <button className="border rounded-lg px-4 py-2">Mark as Completed</button>
+                <button 
+                  className="border rounded-lg px-4 py-2"
+                  onClick={() => {
+                    setVideosCompleted(prev => Math.min(totalVideos, prev + 1));
+                    setProgress(Math.min(100, ((videosCompleted + 1) / totalVideos) * 100));
+                  }}
+                >
+                  Mark as Completed
+                </button>
                 <button className="border rounded-lg px-4 py-2">Generate Notes</button>
               </div>
             </div>
@@ -146,11 +158,19 @@ export default function PlaylistView() {
               <div>
                 <div className="flex justify-between text-sm mb-2">
                   <span>Overall Progress</span>
-                  <span>67%</span>
+                  <span>{progress.toFixed(1)}%</span>
                 </div>
                 <div className="progress-track">
-                  <div className="progress-fill" style={{ width: '67%' }}></div>
+                  <div 
+                    className="progress-fill transition-all duration-300 ease-linear" 
+                    style={{ width: `${progress}%` }}
+                  ></div>
                 </div>
+                {duration > 0 && (
+                  <div className="mt-2 text-xs text-gray-500">
+                    Current video: {Math.round((currentTime / duration) * 100)}% watched
+                  </div>
+                )}
               </div>
               
               <div className="pt-4 border-t">
@@ -173,15 +193,15 @@ export default function PlaylistView() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Total Videos:</span>
-                    <span className="font-medium">24</span>
+                    <span className="font-medium">{totalVideos}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Completed:</span>
-                    <span className="font-medium">16</span>
+                    <span className="font-medium">{videosCompleted}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Time Spent:</span>
-                    <span className="font-medium">12.5 hrs</span>
+                    <span className="font-medium">{timeSpent.toFixed(1)} hrs</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Notes Generated:</span>
