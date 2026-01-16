@@ -363,21 +363,24 @@ By completing this course, you will be able to:
       title: "React.js Complete Course", 
       category: "Web Development", 
       playlistId: "PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu",
-      videoId: null
+      videoId: null,
+      thumbnail: "https://i.ytimg.com/vi/CgkZ7MvWUAA/hqdefault.jpg"
     },
     { 
       id: 1, 
       title: "Python for Beginners", 
       category: "Programming", 
       playlistId: null,
-      videoId: "_uQrJ0TkZlc"
+      videoId: "_uQrJ0TkZlc",
+      thumbnail: "https://i.ytimg.com/vi/_uQrJ0TkZlc/hqdefault.jpg"
     },
     { 
       id: 3, 
       title: "Machine Learning Fundamentals", 
       category: "AI/ML", 
       playlistId: "PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH",
-      videoId: null
+      videoId: null,
+      thumbnail: "https://i.ytimg.com/vi/gmvvaobm7eQ/hqdefault.jpg"
     },
   ];
 
@@ -402,9 +405,18 @@ By completing this course, you will be able to:
         <button onClick={() => navigate('/playlists')} className="btn-primary">
           ← Back to Playlists
         </button>
-        <div>
-          <div className="text-sm text-gray-500">{playlist.category}</div>
-          <h1 className="text-2xl font-semibold">{playlist.title}</h1>
+        <div className="flex items-center gap-4">
+          {playlist.thumbnail && (
+            <img 
+              src={playlist.thumbnail} 
+              alt={playlist.title}
+              className="w-20 h-12 object-cover rounded"
+            />
+          )}
+          <div>
+            <div className="text-sm text-gray-500">{playlist.category}</div>
+            <h1 className="text-2xl font-semibold">{playlist.title}</h1>
+          </div>
         </div>
       </div>
 
