@@ -372,6 +372,13 @@ By completing this course, you will be able to:
       playlistId: null,
       videoId: "_uQrJ0TkZlc"
     },
+    { 
+      id: 3, 
+      title: "Machine Learning Fundamentals", 
+      category: "AI/ML", 
+      playlistId: "PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH",
+      videoId: null
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
