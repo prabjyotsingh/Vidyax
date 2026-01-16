@@ -362,7 +362,15 @@ By completing this course, you will be able to:
       id: 0, 
       title: "React.js Complete Course", 
       category: "Web Development", 
-      playlistId: "PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu"
+      playlistId: "PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu",
+      videoId: null
+    },
+    { 
+      id: 1, 
+      title: "Python for Beginners", 
+      category: "Programming", 
+      playlistId: null,
+      videoId: "_uQrJ0TkZlc"
     },
   ];
 
@@ -402,7 +410,10 @@ By completing this course, you will be able to:
                 id="youtube-player"
                 width="100%"
                 height="100%"
-                src={`https://www.youtube.com/embed/videoseries?list=${playlist.playlistId}&index=${currentVideo + 1}&enablejsapi=1`}
+                src={playlist.playlistId 
+                  ? `https://www.youtube.com/embed/videoseries?list=${playlist.playlistId}&index=${currentVideo + 1}&enablejsapi=1`
+                  : `https://www.youtube.com/embed/${playlist.videoId}?enablejsapi=1`
+                }
                 title={playlist.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
