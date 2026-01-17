@@ -380,7 +380,7 @@ By completing this course, you will be able to:
       category: "AI/ML", 
       playlistId: "PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH",
       videoId: null,
-      thumbnail: "https://i.ytimg.com/vi/gmvvaobm7eQ/hqdefault.jpg"
+      thumbnail: "https://i.ytimg.com/vi/ukzFI9rgwfU/hqdefault.jpg"
     },
   ];
 
