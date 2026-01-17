@@ -375,6 +375,14 @@ By completing this course, you will be able to:
       thumbnail: "https://i.ytimg.com/vi/_uQrJ0TkZlc/hqdefault.jpg"
     },
     { 
+      id: 2, 
+      title: "UI/UX Design Masterclass", 
+      category: "Design", 
+      playlistId: null,
+      videoId: "cTUD_vCrY7M",
+      thumbnail: "https://i.ytimg.com/vi/cTUD_vCrY7M/hqdefault.jpg"
+    },
+    { 
       id: 3, 
       title: "Machine Learning Fundamentals", 
       category: "AI/ML", 
