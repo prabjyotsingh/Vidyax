@@ -30,7 +30,7 @@ export default function Playlists() {
     { id: 2, title: "UI/UX Design Masterclass", category: "Design", url: "https://youtu.be/cTUD_vCrY7M?si=vO85LnxHVuiNKMuI", thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop" },
     { id: 3, title: "Machine Learning Fundamentals", category: "AI/ML", url: "https://www.youtube.com/playlist?list=PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH", thumbnail: "https://i.ytimg.com/vi/ukzFI9rgwfU/hqdefault.jpg" },
     { id: 4, title: "Digital Marketing Mastery", category: "Marketing", url: "https://youtu.be/01Imoibt4as?si=4HfRBYiUi4-hW5nm", thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" },
-    { id: 5, title: "Data Science Bootcamp", category: "Data Science", url: "", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" },
+    { id: 5, title: "Data Science Bootcamp", category: "Data Science", url: "https://youtu.be/fIpKgyleBK0?si=gF9dTA4cmhBODKOp", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" },
     { id: 6, title: "Node.js & Express Backend", category: "Web Development", url: "", thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop" },
     { id: 7, title: "Deep Learning with TensorFlow", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" },
     { id: 8, title: "Full Stack Web Development", category: "Web Development", url: "", thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" },

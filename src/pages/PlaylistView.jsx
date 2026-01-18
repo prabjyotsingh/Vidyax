@@ -398,6 +398,14 @@ By completing this course, you will be able to:
       videoId: "01Imoibt4as",
       thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
     },
+    { 
+      id: 5, 
+      title: "Data Science Bootcamp", 
+      category: "Data Science", 
+      playlistId: null,
+      videoId: "fIpKgyleBK0",
+      thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
