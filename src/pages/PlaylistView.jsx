@@ -414,6 +414,14 @@ By completing this course, you will be able to:
       videoId: "Oe421EPjeBE",
       thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop"
     },
+    { 
+      id: 7, 
+      title: "Deep Learning with TensorFlow", 
+      category: "AI/ML", 
+      playlistId: null,
+      videoId: "tpCFfeUEGs8",
+      thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
