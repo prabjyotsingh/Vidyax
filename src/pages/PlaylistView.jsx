@@ -406,6 +406,14 @@ By completing this course, you will be able to:
       videoId: "fIpKgyleBK0",
       thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
     },
+    { 
+      id: 6, 
+      title: "Node.js & Express Backend", 
+      category: "Web Development", 
+      playlistId: null,
+      videoId: "Oe421EPjeBE",
+      thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
