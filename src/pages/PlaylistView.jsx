@@ -390,6 +390,14 @@ By completing this course, you will be able to:
       videoId: null,
       thumbnail: "https://i.ytimg.com/vi/ukzFI9rgwfU/hqdefault.jpg"
     },
+    { 
+      id: 4, 
+      title: "Digital Marketing Mastery", 
+      category: "Marketing", 
+      playlistId: null,
+      videoId: "01Imoibt4as",
+      thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
