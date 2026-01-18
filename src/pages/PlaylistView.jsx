@@ -422,6 +422,14 @@ By completing this course, you will be able to:
       videoId: "tpCFfeUEGs8",
       thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop"
     },
+    { 
+      id: 8, 
+      title: "Full Stack Web Development", 
+      category: "Web Development", 
+      playlistId: "PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w",
+      videoId: null,
+      thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));

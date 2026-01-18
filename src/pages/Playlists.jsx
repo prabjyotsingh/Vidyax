@@ -33,7 +33,7 @@ export default function Playlists() {
     { id: 5, title: "Data Science Bootcamp", category: "Data Science", url: "https://youtu.be/fIpKgyleBK0?si=gF9dTA4cmhBODKOp", thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" },
     { id: 6, title: "Node.js & Express Backend", category: "Web Development", url: "https://youtu.be/Oe421EPjeBE?si=4Yh35w4QclkM2r1_", thumbnail: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=400&h=300&fit=crop" },
     { id: 7, title: "Deep Learning with TensorFlow", category: "AI/ML", url: "https://youtu.be/tpCFfeUEGs8?si=Gy6jvqadlZTIkv-T", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" },
-    { id: 8, title: "Full Stack Web Development", category: "Web Development", url: "", thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" },
+    { id: 8, title: "Full Stack Web Development", category: "Web Development", url: "https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w", thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" },
     { id: 9, title: "JavaScript ES6+ Mastery", category: "Programming", url: "", thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop" },
     { id: 10, title: "Python Data Analysis", category: "Data Science", url: "", thumbnail: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=300&fit=crop" },
     { id: 11, title: "Neural Networks from Scratch", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop" },
