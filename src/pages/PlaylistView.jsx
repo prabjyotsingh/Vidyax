@@ -430,6 +430,14 @@ By completing this course, you will be able to:
       videoId: null,
       thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop"
     },
+    { 
+      id: 9, 
+      title: "JavaScript ES6+ Mastery", 
+      category: "Programming", 
+      playlistId: "PLjVLYmrlmjGe3fUTOCarulICb3R8iAh4t",
+      videoId: null,
+      thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
