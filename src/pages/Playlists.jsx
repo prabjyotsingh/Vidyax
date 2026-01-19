@@ -35,7 +35,7 @@ export default function Playlists() {
     { id: 7, title: "Deep Learning with TensorFlow", category: "AI/ML", url: "https://youtu.be/tpCFfeUEGs8?si=Gy6jvqadlZTIkv-T", thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" },
     { id: 8, title: "Full Stack Web Development", category: "Web Development", url: "https://www.youtube.com/playlist?list=PLu0W_9lII9agq5TrH9XLIKQvv0iaF2X3w", thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop" },
     { id: 9, title: "JavaScript ES6+ Mastery", category: "Programming", url: "https://www.youtube.com/watch?v=tULW49jkKnA&list=PLjVLYmrlmjGe3fUTOCarulICb3R8iAh4t", thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop" },
-    { id: 10, title: "Python Data Analysis", category: "Data Science", url: "", thumbnail: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=400&h=300&fit=crop" },
+    { id: 10, title: "Python Data Analysis", category: "Data Science", url: "https://youtu.be/wUSDVGivd-8?si=oaYhf3EOfknyWEzD", thumbnail: "https://i.ytimg.com/vi/wUSDVGivd-8/hqdefault.jpg" },
     { id: 11, title: "Neural Networks from Scratch", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop" },
     { id: 12, title: "MongoDB Database Design", category: "Databases", url: "", thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop" },
     { id: 13, title: "Docker & Kubernetes", category: "DevOps", url: "", thumbnail: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=300&fit=crop" },
