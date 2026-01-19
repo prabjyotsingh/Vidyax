@@ -438,6 +438,22 @@ By completing this course, you will be able to:
       videoId: null,
       thumbnail: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop"
     },
+    { 
+      id: 10, 
+      title: "Python Data Analysis", 
+      category: "Data Science", 
+      playlistId: null,
+      videoId: "wUSDVGivd-8",
+      thumbnail: "https://i.ytimg.com/vi/wUSDVGivd-8/hqdefault.jpg"
+    },
+    { 
+      id: 11, 
+      title: "Neural Networks from Scratch", 
+      category: "AI/ML", 
+      playlistId: "PLPTV0NXA_ZSj6tNyn_UadmUeU3Q3oR-hu",
+      videoId: null,
+      thumbnail: "https://i.ytimg.com/vi/zrKpz9-AZ_E/hqdefault.jpg"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
