@@ -454,6 +454,30 @@ By completing this course, you will be able to:
       videoId: null,
       thumbnail: "https://i.ytimg.com/vi/zrKpz9-AZ_E/hqdefault.jpg"
     },
+    { 
+      id: 12, 
+      title: "MongoDB Database Design", 
+      category: "Databases", 
+      playlistId: "PLA3GkZPtsafZydhN4nP0h7hw7PQuLsBv1",
+      videoId: null,
+      thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop"
+    },
+    { 
+      id: 13, 
+      title: "Docker & Kubernetes", 
+      category: "DevOps", 
+      playlistId: null,
+      videoId: "kTp5xUtcalw",
+      thumbnail: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=300&fit=crop"
+    },
+    { 
+      id: 14, 
+      title: "TypeScript Complete Guide", 
+      category: "Programming", 
+      playlistId: null,
+      videoId: "30LWjhZzg50",
+      thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
