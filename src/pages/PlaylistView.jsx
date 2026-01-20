@@ -478,6 +478,30 @@ By completing this course, you will be able to:
       videoId: "30LWjhZzg50",
       thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop"
     },
+    { 
+      id: 15, 
+      title: "React Native Mobile Apps", 
+      category: "Mobile Development", 
+      playlistId: "PL6QREj8te1P54rZQx5AWWtFyf1hlznFjL",
+      videoId: null,
+      thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop"
+    },
+    { 
+      id: 16, 
+      title: "AWS Cloud Practitioner", 
+      category: "Cloud Computing", 
+      playlistId: null,
+      videoId: "3hLmDS179YE",
+      thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop"
+    },
+    { 
+      id: 17, 
+      title: "Computer Vision with OpenCV", 
+      category: "AI/ML", 
+      playlistId: "PLaHodugB5x-Ddy_H951h0VHjOjfzZNCBh",
+      videoId: null,
+      thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop"
+    },
   ];
 
   const playlist = playlists.find(p => p.id === parseInt(id));

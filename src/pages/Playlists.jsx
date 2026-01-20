@@ -40,9 +40,9 @@ export default function Playlists() {
     { id: 12, title: "MongoDB Database Design", category: "Databases", url: "https://www.youtube.com/watch?v=4EjKroJCpFA&list=PLA3GkZPtsafZydhN4nP0h7hw7PQuLsBv1", thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=400&h=300&fit=crop" },
     { id: 13, title: "Docker & Kubernetes", category: "DevOps", url: "https://youtu.be/kTp5xUtcalw?si=15gJ_iybhZseZLbb", thumbnail: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=400&h=300&fit=crop" },
     { id: 14, title: "TypeScript Complete Guide", category: "Programming", url: "https://youtu.be/30LWjhZzg50?si=Nro_cnS6BSvMh54S", thumbnail: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&h=300&fit=crop" },
-    { id: 15, title: "React Native Mobile Apps", category: "Mobile Development", url: "", thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" },
-    { id: 16, title: "AWS Cloud Practitioner", category: "Cloud Computing", url: "", thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop" },
-    { id: 17, title: "Computer Vision with OpenCV", category: "AI/ML", url: "", thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop" },
+    { id: 15, title: "React Native Mobile Apps", category: "Mobile Development", url: "https://www.youtube.com/watch?v=kmy_YNhl0mw&list=PL6QREj8te1P54rZQx5AWWtFyf1hlznFjL", thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop" },
+    { id: 16, title: "AWS Cloud Practitioner", category: "Cloud Computing", url: "https://youtu.be/3hLmDS179YE?si=LS4RYyxPARJLTqTy", thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop" },
+    { id: 17, title: "Computer Vision with OpenCV", category: "AI/ML", url: "https://www.youtube.com/watch?v=l_Mhv0rxbQk&list=PLaHodugB5x-Ddy_H951h0VHjOjfzZNCBh", thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop" },
   ];
 
   return (
