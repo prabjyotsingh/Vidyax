@@ -48,43 +48,49 @@ export default function Playlists() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Playlists</h1>
-        <button className="btn-primary">Add Playlist</button>
+        <div>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Playlists</h1>
+          <p className="text-gray-400 text-sm mt-1">Continue your learning journey</p>
+        </div>
+        <button className="btn-primary">+ Add Playlist</button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {playlists.map((p, i) => (
-          <div key={i} className="card overflow-hidden">
-            <div className="h-36 bg-gray-100 relative overflow-hidden">
+          <div key={i} className="card overflow-hidden group">
+            <div className="h-40 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
               {p.thumbnail && (
                 <img 
                   src={p.thumbnail} 
                   alt={p.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   loading="lazy"
                 />
               )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+                <span className="text-xs text-white font-medium">{p.category}</span>
+              </div>
             </div>
-            <div className="p-4">
-              <div className="text-xs text-indigo-600">{p.category}</div>
-              <div className="mt-1 font-medium">{p.title}</div>
-              <div className="mt-3 relative">
+            <div className="p-5">
+              <h3 className="font-semibold text-white text-lg line-clamp-2 group-hover:text-indigo-400 transition-colors">{p.title}</h3>
+              <div className="mt-4 relative">
                 <div className="progress-track">
                   <div className="progress-fill" style={{ width: `${playlistProgress[p.id] || 0}%` }} />
                 </div>
-                <div className="absolute bottom-0 right-0 text-xs text-gray-500 bg-white px-1">
-                  {(playlistProgress[p.id] || 0).toFixed(1)}%
+                <div className="absolute -top-5 right-0 text-sm font-semibold text-indigo-400">
+                  {(playlistProgress[p.id] || 0).toFixed(0)}%
                 </div>
               </div>
-              <div className="mt-3 flex gap-2">
+              <div className="mt-4 flex gap-2">
                 <button 
-                  className="btn-primary flex-1"
+                  className="btn-primary flex-1 text-sm"
                   onClick={() => p.url ? navigate(`/playlist/${p.id}`) : null}
                   disabled={!p.url}
                 >
-                  Continue Learning
+                  {playlistProgress[p.id] > 0 ? '▶️ Continue' : '🚀 Start'}
                 </button>
-                <button className="border rounded-lg px-4">Notes</button>
+                <button className="border border-gray-700 rounded-lg px-4 text-gray-300 hover:bg-gray-800 transition-all text-sm">📝</button>
               </div>
             </div>
           </div>
