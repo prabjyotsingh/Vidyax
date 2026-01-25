@@ -3,43 +3,43 @@ import ProgressBar from "../components/ProgressBar";
 
 export default function Dashboard() {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Dashboard</h1>
-          <p className="text-gray-400 text-sm mt-1">Track your learning progress</p>
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Dashboard</h1>
+          <p className="text-gray-400 text-xs sm:text-sm mt-1">Track your learning progress</p>
         </div>
-        <div className="flex gap-2"><button className="btn-primary">📊 Export Data</button></div>
+        <div className="flex gap-2"><button className="btn-primary text-sm w-full sm:w-auto">📊 Export Data</button></div>
       </div>
 
-      <section className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {[
           ["📚 Total Playlists","18","+3 this week"],
           ["🎥 Videos Watched","247","+12 today"],
           ["⏰ Study Hours","142.5","+8.2 this week"],
           ["🤖 AI Notes Generated","89","+5 today"],
         ].map(([label,value,delta],i)=> (
-          <Card key={i} className="p-5 hover:scale-105 transition-transform">
-            <div className="text-sm text-gray-400 font-medium">{label}</div>
-            <div className="mt-2 text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">{value}</div>
+          <Card key={i} className="p-4 sm:p-5 hover:scale-105 transition-transform">
+            <div className="text-xs sm:text-sm text-gray-400 font-medium">{label}</div>
+            <div className="mt-2 text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">{value}</div>
             <div className="text-xs text-emerald-400 mt-1 font-medium">{delta}</div>
           </Card>
         ))}
       </section>
 
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Card className="p-6 lg:col-span-2">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4">
+        <Card className="p-4 sm:p-6 lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-lg text-white">📈 Weekly Progress</h2>
-            <div className="text-sm text-gray-400">Hours</div>
+            <h2 className="font-semibold text-base sm:text-lg text-white">📈 Weekly Progress</h2>
+            <div className="text-xs sm:text-sm text-gray-400">Hours</div>
           </div>
-          <div className="mt-4 h-64 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-lg border border-gray-700/50 flex items-center justify-center text-gray-500">
+          <div className="mt-4 h-48 sm:h-64 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-lg border border-gray-700/50 flex items-center justify-center text-gray-500 text-sm">
             Chart placeholder
           </div>
         </Card>
-        <Card className="p-6">
-          <h2 className="font-semibold text-lg text-white mb-4">🎯 Completion Status</h2>
-          <div className="space-y-5">
+        <Card className="p-4 sm:p-6">
+          <h2 className="font-semibold text-base sm:text-lg text-white mb-4">🎯 Completion Status</h2>
+          <div className="space-y-4 sm:space-y-5">
             {[
               ["✅ Completed","28","5 / 18"],
               ["⏳ In Progress","60","8 / 18"],
@@ -54,41 +54,41 @@ export default function Dashboard() {
         </Card>
       </section>
 
-      <Card className="p-6 bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-amber-700/30">
-        <div className="font-semibold text-lg text-amber-300 mb-3">🤖 Notes Generation Queue</div>
+      <Card className="p-4 sm:p-6 bg-gradient-to-br from-amber-900/20 to-orange-900/20 border-amber-700/30">
+        <div className="font-semibold text-base sm:text-lg text-amber-300 mb-3">🤖 Notes Generation Queue</div>
         <div className="space-y-2">
           {[
             ["Neural Networks & Deep Learning","Processing..."],
             ["React Hooks & State Management","Queued"],
             ["Docker Containerization Basics","Queued"],
           ].map(([title,status],i)=> (
-            <div key={i} className="flex items-center justify-between bg-gray-800/50 rounded-lg border border-gray-700/50 px-4 py-3 hover:border-amber-500/50 transition-colors">
-              <div className="text-sm text-gray-300">{title}</div>
-              <div className={`text-xs font-medium ${status==='Processing...'?'text-amber-400 animate-pulse':'text-gray-500'}`}>{status}</div>
+            <div key={i} className="flex items-center justify-between bg-gray-800/50 rounded-lg border border-gray-700/50 px-3 sm:px-4 py-2 sm:py-3 hover:border-amber-500/50 transition-colors">
+              <div className="text-xs sm:text-sm text-gray-300 truncate pr-2">{title}</div>
+              <div className={`text-xs font-medium whitespace-nowrap ${status==='Processing...'?'text-amber-400 animate-pulse':'text-gray-500'}`}>{status}</div>
             </div>
           ))}
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card className="p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
+        <Card className="p-4 sm:p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-lg text-white">🔥 Learning Streaks</h2>
-            <div className="text-emerald-400 text-3xl font-bold">12</div>
+            <h2 className="font-semibold text-base sm:text-lg text-white">🔥 Learning Streaks</h2>
+            <div className="text-emerald-400 text-2xl sm:text-3xl font-bold">12</div>
           </div>
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2">
             {"MTWTFSS".split("").map((day,i)=>(
               <div key={i} className="flex flex-col items-center gap-1">
                 <div className="text-xs text-gray-500 font-medium">{day}</div>
-                <div className={`w-full h-10 rounded-lg ${i<6? 'bg-gradient-to-t from-emerald-600 to-emerald-400' : 'bg-emerald-400/30'} transition-all hover:scale-110`} />
+                <div className={`w-full h-8 sm:h-10 rounded-lg ${i<6? 'bg-gradient-to-t from-emerald-600 to-emerald-400' : 'bg-emerald-400/30'} transition-all hover:scale-110`} />
               </div>
             ))}
           </div>
-          <div className="text-sm text-gray-400 mt-4 text-center">🏆 Best Streak: <span className="text-emerald-400 font-semibold">28 days</span></div>
+          <div className="text-xs sm:text-sm text-gray-400 mt-4 text-center">🏆 Best Streak: <span className="text-emerald-400 font-semibold">28 days</span></div>
         </Card>
-        <Card className="p-6">
-          <h2 className="font-semibold text-lg text-white mb-4">📊 Study Time Distribution</h2>
-          <div className="space-y-4">
+        <Card className="p-4 sm:p-6">
+          <h2 className="font-semibold text-base sm:text-lg text-white mb-4">📊 Study Time Distribution</h2>
+          <div className="space-y-3 sm:space-y-4">
             {[
               ["💻 Web Development",42],
               ["🤖 AI/ML",35],

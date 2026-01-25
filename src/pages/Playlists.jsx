@@ -46,19 +46,19 @@ export default function Playlists() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Playlists</h1>
-          <p className="text-gray-400 text-sm mt-1">Continue your learning journey</p>
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Playlists</h1>
+          <p className="text-gray-400 text-xs sm:text-sm mt-1">Continue your learning journey</p>
         </div>
-        <button className="btn-primary">+ Add Playlist</button>
+        <button className="btn-primary text-sm sm:text-base w-full sm:w-auto">+ Add Playlist</button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {playlists.map((p, i) => (
           <div key={i} className="card overflow-hidden group">
-            <div className="h-40 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+            <div className="h-36 sm:h-40 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
               {p.thumbnail && (
                 <img 
                   src={p.thumbnail} 
@@ -68,29 +68,29 @@ export default function Playlists() {
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+              <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-black/50 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1">
                 <span className="text-xs text-white font-medium">{p.category}</span>
               </div>
             </div>
-            <div className="p-5">
-              <h3 className="font-semibold text-white text-lg line-clamp-2 group-hover:text-indigo-400 transition-colors">{p.title}</h3>
-              <div className="mt-4 relative">
+            <div className="p-4 sm:p-5">
+              <h3 className="font-semibold text-white text-base sm:text-lg line-clamp-2 group-hover:text-indigo-400 transition-colors">{p.title}</h3>
+              <div className="mt-3 sm:mt-4 relative">
                 <div className="progress-track">
                   <div className="progress-fill" style={{ width: `${playlistProgress[p.id] || 0}%` }} />
                 </div>
-                <div className="absolute -top-5 right-0 text-sm font-semibold text-indigo-400">
+                <div className="absolute -top-5 right-0 text-xs sm:text-sm font-semibold text-indigo-400">
                   {(playlistProgress[p.id] || 0).toFixed(0)}%
                 </div>
               </div>
-              <div className="mt-4 flex gap-2">
+              <div className="mt-3 sm:mt-4 flex gap-2">
                 <button 
-                  className="btn-primary flex-1 text-sm"
+                  className="btn-primary flex-1 text-xs sm:text-sm py-2"
                   onClick={() => p.url ? navigate(`/playlist/${p.id}`) : null}
                   disabled={!p.url}
                 >
                   {playlistProgress[p.id] > 0 ? '▶️ Continue' : '🚀 Start'}
                 </button>
-                <button className="border border-gray-700 rounded-lg px-4 text-gray-300 hover:bg-gray-800 transition-all text-sm">📝</button>
+                <button className="border border-gray-700 rounded-lg px-3 sm:px-4 text-gray-300 hover:bg-gray-800 transition-all text-xs sm:text-sm">📝</button>
               </div>
             </div>
           </div>
