@@ -33,6 +33,8 @@ function Layout({ children }) {
   // Save settings to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('app_settings', JSON.stringify(settings));
+    // Apply theme to document root
+    document.documentElement.setAttribute('data-theme', settings.theme);
   }, [settings]);
 
   const updateSetting = (key, value) => {
@@ -279,22 +281,51 @@ function Layout({ children }) {
                   ⚙️
                 </button>
                 {showSettings && (
-                  <div className="absolute right-0 mt-2 w-72 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50">
+                  <div className="absolute right-0 mt-2 w-80 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
                     <div className="p-4 border-b border-gray-700">
                       <h3 className="font-semibold text-white">Settings</h3>
                     </div>
-                    <div className="p-4 space-y-4">
+                    <div className="p-4 space-y-4 max-h-[500px] overflow-y-auto">
                       <div>
-                        <label className="text-sm text-gray-300 font-medium">Theme</label>
-                        <select 
-                          value={settings.theme}
-                          onChange={(e) => updateSetting('theme', e.target.value)}
-                          className="w-full mt-2 bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
-                        >
-                          <option value="dark">Dark</option>
-                          <option value="light">Light</option>
-                          <option value="auto">Auto</option>
-                        </select>
+                        <label className="text-sm text-gray-300 font-medium mb-3 block">Theme</label>
+                        <div className="grid grid-cols-2 gap-2">
+                          {[
+                            { value: 'dark', label: 'Dark', emoji: '🌙', colors: ['#1a1a2e', '#6366f1'] },
+                            { value: 'light', label: 'Light', emoji: '☀️', colors: ['#ffffff', '#4f46e5'] },
+                            { value: 'ocean', label: 'Ocean', emoji: '🌊', colors: ['#0f172a', '#0ea5e9'] },
+                            { value: 'sunset', label: 'Sunset', emoji: '🌅', colors: ['#291812', '#fb923c'] },
+                            { value: 'forest', label: 'Forest', emoji: '🌲', colors: ['#142114', '#22c55e'] },
+                          ].map((theme) => (
+                            <button
+                              key={theme.value}
+                              onClick={() => updateSetting('theme', theme.value)}
+                              className={`relative p-3 rounded-lg border-2 transition-all ${
+                                settings.theme === theme.value
+                                  ? 'border-indigo-500 bg-indigo-500/10'
+                                  : 'border-gray-700 bg-gray-800/50 hover:border-gray-600'
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="text-xl">{theme.emoji}</span>
+                                <span className="text-sm font-medium text-white">{theme.label}</span>
+                              </div>
+                              <div className="flex gap-1">
+                                {theme.colors.map((color, i) => (
+                                  <div
+                                    key={i}
+                                    className="h-4 flex-1 rounded"
+                                    style={{ backgroundColor: color }}
+                                  />
+                                ))}
+                              </div>
+                              {settings.theme === theme.value && (
+                                <div className="absolute top-2 right-2 w-5 h-5 bg-indigo-500 rounded-full flex items-center justify-center">
+                                  <span className="text-white text-xs">✓</span>
+                                </div>
+                              )}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                       <div>
                         <label className="text-sm text-gray-300 font-medium">Auto-mark completed</label>
