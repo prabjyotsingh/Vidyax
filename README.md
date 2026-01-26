@@ -7,7 +7,7 @@
 <p>
   <img src="https://img.shields.io/badge/React-JSX-61dafb?style=flat&logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-38bdf8?style=flat&logo=tailwindcss" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/Status-Development-yellow?style=flat" alt="Status" />
+<img src="https://img.shields.io/badge/AI-Powered-blueviolet?style=flat&logo=openai" alt="AI Powered" />
   <a href="https://vidyaxai.vercel.app/" target="_blank">
     <img src="https://img.shields.io/badge/Live_Demo-Visit_Site-green?style=flat&logo=vercel" alt="Live Demo" />
   </a>
