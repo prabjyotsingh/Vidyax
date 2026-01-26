@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>📚 StudyTracker — Playlists Tracker</h1>
+  <h1>📚 VidyaX AI— Playlists Tracker</h1>
 
 **Track your learning playlists, monitor progress, and stay consistent**
 *Built for focused study, streaks, and analytics*
