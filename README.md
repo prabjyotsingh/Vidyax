@@ -9,8 +9,8 @@
     <img src="https://img.shields.io/badge/Next.js-14-black?style=flat&logo=next.js" alt="Next.js" />
     <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-38bdf8?style=flat&logo=tailwindcss" alt="Tailwind CSS" />
     <img src="https://img.shields.io/badge/Status-Development-yellow?style=flat" alt="Status" />
-    <a href="http://localhost:3000/" target="_blank">
-      <img src="https://img.shields.io/badge/Local_App-Running-success?style=flat" alt="Local App" />
+    <a href="vidyaxai.vercel.app" target="_blank">
+      <img src="https://img.shields.io/badge/Live Demo-success?style=flat" alt="Local App" />
     </a>
   </p>
 
@@ -52,11 +52,11 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 
 This project is built using modern Next.js tooling:
 
-- **Framework**: [Next.js](https://nextjs.org/) (App Router, built on React using JSX)
-* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-* **Routing**: Next.js App Router (`app/*`)
-* **Charts**: Planned (placeholders included)
-* **Theme Utilities**: Managed via `app/globals.css`
+- **Framework**: React (JSX)
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks / Context
+- **AI Features**: AI-powered notes & insights
+
 
 ---
 
