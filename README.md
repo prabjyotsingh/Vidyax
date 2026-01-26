@@ -1,10 +1,3 @@
-Got it 👍
-Here’s a **clean, polished README-style page** in the **same structure and vibe** as your Panthnama example, but adapted for **StudyTracker — Playlists Tracker (Next.js + Tailwind)**.
-
-You can copy-paste this directly into your `README.md`.
-
----
-
 <div align="center">
 
   <h1>📚 StudyTracker — Playlists Tracker</h1>
