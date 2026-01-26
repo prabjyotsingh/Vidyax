@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Dashboard from './pages/Dashboard';
 import Playlists from './pages/Playlists';
 import PlaylistView from './pages/PlaylistView';
@@ -11,9 +11,91 @@ import './App.css';
 function Layout({ children }) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: "New AI notes generated", message: "React Components notes are ready", time: "2 min ago", unread: true },
+    { id: 2, title: "Playlist completed!", message: "You finished Python for Beginners", time: "1 hour ago", unread: true },
+    { id: 3, title: "Study reminder", message: "Keep your 12-day streak going!", time: "3 hours ago", unread: false },
+  ]);
+  
+  // Settings state with localStorage persistence
+  const [settings, setSettings] = useState(() => {
+    const saved = localStorage.getItem('app_settings');
+    return saved ? JSON.parse(saved) : {
+      theme: 'dark',
+      autoMarkCompleted: true,
+      notifyStudyReminders: true,
+      notifyAiNotes: true
+    };
+  });
+
+  // Save settings to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('app_settings', JSON.stringify(settings));
+  }, [settings]);
+
+  const updateSetting = (key, value) => {
+    setSettings(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
   
   const isActive = (path) => {
     return location.pathname === path;
+  };
+
+  const handleShare = async () => {
+    const stats = {
+      playlists: localStorage.length,
+      progress: 0
+    };
+    
+    // Calculate average progress
+    let totalProgress = 0;
+    let count = 0;
+    for (let i = 0; i < 18; i++) {
+      const progress = localStorage.getItem(`playlist_${i}_progress`);
+      if (progress) {
+        totalProgress += parseFloat(progress);
+        count++;
+      }
+    }
+    const avgProgress = count > 0 ? (totalProgress / count).toFixed(1) : 0;
+    
+    const shareText = `🎓 My YT Study Progress:\n📚 ${count} playlists in progress\n📊 ${avgProgress}% average completion\n\nTrack your YouTube learning journey!`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'My Learning Progress',
+          text: shareText,
+          url: window.location.origin
+        });
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          copyToClipboard(shareText);
+        }
+      }
+    } else {
+      copyToClipboard(shareText);
+    }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Progress copied to clipboard!');
+    });
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, unread: false })));
+  };
+
+  const clearNotifications = () => {
+    setNotifications([]);
+    setShowNotifications(false);
   };
   
   return (
@@ -120,9 +202,189 @@ function Layout({ children }) {
               />
             </div>
             <div className="flex items-center gap-2">
-              <button className="hidden sm:flex btn-primary text-sm">✨ Share</button>
-              <button className="p-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-all hidden sm:block">🔔</button>
-              <button className="p-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-all">⚙️</button>
+              <button 
+                onClick={handleShare}
+                className="hidden sm:flex btn-primary text-sm items-center gap-2"
+              >
+                ✨ Share
+              </button>
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    setShowNotifications(!showNotifications);
+                    setShowSettings(false);
+                  }}
+                  className="relative p-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-all hidden sm:block"
+                >
+                  🔔
+                  {notifications.some(n => n.unread) && (
+                    <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                  )}
+                </button>
+                {showNotifications && (
+                  <div className="absolute right-0 mt-2 w-80 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50">
+                    <div className="p-4 border-b border-gray-700 flex items-center justify-between">
+                      <h3 className="font-semibold text-white">Notifications</h3>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={markAllAsRead}
+                          className="text-xs text-indigo-400 hover:text-indigo-300"
+                        >
+                          Mark all read
+                        </button>
+                        <button 
+                          onClick={clearNotifications}
+                          className="text-xs text-gray-400 hover:text-gray-300"
+                        >
+                          Clear
+                        </button>
+                      </div>
+                    </div>
+                    <div className="max-h-96 overflow-y-auto">
+                      {notifications.length > 0 ? (
+                        notifications.map(notif => (
+                          <div 
+                            key={notif.id}
+                            className={`p-4 border-b border-gray-700/50 hover:bg-gray-700/30 transition-colors ${notif.unread ? 'bg-indigo-500/5' : ''}`}
+                          >
+                            <div className="flex items-start gap-3">
+                              {notif.unread && (
+                                <span className="w-2 h-2 bg-indigo-500 rounded-full mt-1.5"></span>
+                              )}
+                              <div className="flex-1">
+                                <div className="font-medium text-white text-sm">{notif.title}</div>
+                                <div className="text-xs text-gray-400 mt-1">{notif.message}</div>
+                                <div className="text-xs text-gray-500 mt-2">{notif.time}</div>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-8 text-center text-gray-500 text-sm">
+                          No notifications
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="relative">
+                <button 
+                  onClick={() => {
+                    setShowSettings(!showSettings);
+                    setShowNotifications(false);
+                  }}
+                  className="p-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-all"
+                >
+                  ⚙️
+                </button>
+                {showSettings && (
+                  <div className="absolute right-0 mt-2 w-72 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50">
+                    <div className="p-4 border-b border-gray-700">
+                      <h3 className="font-semibold text-white">Settings</h3>
+                    </div>
+                    <div className="p-4 space-y-4">
+                      <div>
+                        <label className="text-sm text-gray-300 font-medium">Theme</label>
+                        <select 
+                          value={settings.theme}
+                          onChange={(e) => updateSetting('theme', e.target.value)}
+                          className="w-full mt-2 bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        >
+                          <option value="dark">Dark</option>
+                          <option value="light">Light</option>
+                          <option value="auto">Auto</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-300 font-medium">Auto-mark completed</label>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className="text-xs text-gray-400">Mark videos as completed at 90%</span>
+                          <input 
+                            type="checkbox" 
+                            checked={settings.autoMarkCompleted}
+                            onChange={(e) => updateSetting('autoMarkCompleted', e.target.checked)}
+                            className="w-4 h-4 accent-indigo-500 cursor-pointer" 
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="text-sm text-gray-300 font-medium">Notifications</label>
+                        <div className="space-y-2 mt-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-gray-400">Study reminders</span>
+                            <input 
+                              type="checkbox" 
+                              checked={settings.notifyStudyReminders}
+                              onChange={(e) => updateSetting('notifyStudyReminders', e.target.checked)}
+                              className="w-4 h-4 accent-indigo-500 cursor-pointer" 
+                            />
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs text-gray-400">AI notes completed</span>
+                            <input 
+                              type="checkbox" 
+                              checked={settings.notifyAiNotes}
+                              onChange={(e) => updateSetting('notifyAiNotes', e.target.checked)}
+                              className="w-4 h-4 accent-indigo-500 cursor-pointer" 
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="pt-2 border-t border-gray-700">
+                        <button 
+                          onClick={() => {
+                            if (confirm('⚠️ This will delete all your learning progress, notes, and settings. This action cannot be undone.\n\nAre you sure you want to continue?')) {
+                              // Clear all localStorage except settings temporarily
+                              const currentSettings = localStorage.getItem('app_settings');
+                              localStorage.clear();
+                              // Show success message
+                              alert('✓ All learning data has been cleared successfully!');
+                              // Restore default settings
+                              setSettings({
+                                theme: 'dark',
+                                autoMarkCompleted: true,
+                                notifyStudyReminders: true,
+                                notifyAiNotes: true
+                              });
+                              setShowSettings(false);
+                              // Reload to reset state
+                              setTimeout(() => window.location.reload(), 500);
+                            }
+                          }}
+                          className="w-full px-4 py-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg text-sm hover:bg-red-500/20 transition-all font-medium"
+                        >
+                          Clear All Data
+                        </button>
+                      </div>
+                      <div>
+                        <button 
+                          onClick={() => {
+                            const data = {};
+                            for (let i = 0; i < localStorage.length; i++) {
+                              const key = localStorage.key(i);
+                              data[key] = localStorage.getItem(key);
+                            }
+                            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            const timestamp = new Date().toISOString().split('T')[0];
+                            a.download = `yt-study-backup-${timestamp}.json`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                            // Show success notification
+                            alert('✓ Data exported successfully!');
+                          }}
+                          className="w-full px-4 py-2 bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 rounded-lg text-sm hover:bg-indigo-500/20 transition-all font-medium"
+                        >
+                          Export Data
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </header>
