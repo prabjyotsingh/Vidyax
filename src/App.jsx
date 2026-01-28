@@ -66,7 +66,7 @@ function Layout({ children }) {
     }
     const avgProgress = count > 0 ? (totalProgress / count).toFixed(1) : 0;
     
-    const shareText = `🎓 My VidyaX AI Progress:\n📚 ${count} playlists in progress\n📊 ${avgProgress}% average completion\n\nTrack your YouTube learning journey with AI!`;
+    const shareText = `🎓 My YT Study Progress:\n📚 ${count} playlists in progress\n📊 ${avgProgress}% average completion\n\nTrack your YouTube learning journey!`;
     
     if (navigator.share) {
       try {
@@ -118,7 +118,7 @@ function Layout({ children }) {
           to="/"
           className="mx-3 mt-5 mb-2 px-4 py-3 text-xl font-bold text-left rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 shadow-lg transition-all"
         >
-          🎓 VidyaX AI
+          🎓 YT Study
         </Link>
         <nav className="px-3 space-y-2 mt-4">
           <Link 
