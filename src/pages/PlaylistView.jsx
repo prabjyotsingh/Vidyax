@@ -663,25 +663,25 @@ By completing this course, you will be able to:
       {/* Notes Modal */}
       {showNotes && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h3 className="text-xl font-semibold">📝 Video Notes</h3>
+          <div className="bg-black border border-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b border-gray-800">
+              <h3 className="text-xl font-semibold text-white">📝 Video Notes</h3>
               <button 
                 onClick={() => setShowNotes(false)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
+                className="text-gray-400 hover:text-white text-2xl"
               >
                 ×
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className="flex-1 overflow-y-auto p-4 bg-black">
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full h-full min-h-[400px] p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-full min-h-[400px] p-4 bg-gray-900 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
                 placeholder="Your notes will appear here..."
               />
             </div>
-            <div className="flex gap-2 p-4 border-t">
+            <div className="flex gap-2 p-4 border-t border-gray-800 bg-black">
               <button 
                 onClick={saveNotes}
                 className="btn-primary"
@@ -691,13 +691,13 @@ By completing this course, you will be able to:
               <button 
                 onClick={generateNotes}
                 disabled={isGenerating}
-                className="border rounded-lg px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50"
+                className="border border-gray-700 rounded-lg px-4 py-2 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50"
               >
                 {isGenerating ? '⏳ Regenerating...' : '🔄 Regenerate Notes'}
               </button>
               <button 
                 onClick={() => setShowNotes(false)}
-                className="border rounded-lg px-4 py-2"
+                className="border border-gray-700 rounded-lg px-4 py-2 bg-gray-900 text-white hover:bg-gray-800"
               >
                 Close
               </button>

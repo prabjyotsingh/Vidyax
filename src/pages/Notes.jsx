@@ -92,13 +92,18 @@ export default function Notes() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">AI Notes Library</h1>
-          <p className="text-sm text-gray-500 mt-1">{notes.length} note{notes.length !== 1 ? 's' : ''} generated</p>
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">AI Notes Library</h1>
+          <p className="text-sm text-gray-400 mt-1">{notes.length} note{notes.length !== 1 ? 's' : ''} generated</p>
         </div>
         <div className="flex gap-2">
           <button 
             onClick={exportAllNotes}
-            className="border rounded-lg px-4 py-2 hover:bg-gray-50"
+            className="px-4 py-2 rounded-lg border transition-all"
+            style={{ 
+              borderColor: 'rgb(var(--border))',
+              color: 'rgb(var(--text))',
+              backgroundColor: 'rgb(var(--background-secondary))'
+            }}
             disabled={notes.length === 0}
           >
             📥 Export All
@@ -115,8 +120,8 @@ export default function Notes() {
       {notes.length === 0 ? (
         <div className="card p-12 text-center">
           <div className="text-6xl mb-4">📝</div>
-          <h3 className="text-xl font-semibold mb-2">No notes yet</h3>
-          <p className="text-gray-500 mb-4">Start watching videos and generate AI notes to see them here</p>
+          <h3 className="text-xl font-semibold mb-2" style={{ color: 'rgb(var(--text))' }}>No notes yet</h3>
+          <p className="text-gray-400 mb-4">Start watching videos and generate AI notes to see them here</p>
           <button onClick={() => navigate('/playlists')} className="btn-primary">
             Browse Playlists
           </button>
@@ -125,14 +130,19 @@ export default function Notes() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {notes.map((n, i) => (
             <div key={i} className="card p-4 hover:shadow-lg transition-shadow">
-              <div className="font-medium line-clamp-2">{n.title}</div>
-              <div className="text-sm text-gray-500">Playlist {n.playlistId} • Video {n.videoId}</div>
-              <div className="mt-2 text-sm text-gray-500">{n.pageCount} page{n.pageCount > 1 ? 's' : ''} • {n.wordCount.toLocaleString()} words</div>
-              <div className="text-xs text-gray-400">{n.timeAgo}</div>
+              <div className="font-medium line-clamp-2" style={{ color: 'rgb(var(--text))' }}>{n.title}</div>
+              <div className="text-sm text-gray-400">Playlist {n.playlistId} • Video {n.videoId}</div>
+              <div className="mt-2 text-sm text-gray-400">{n.pageCount} page{n.pageCount > 1 ? 's' : ''} • {n.wordCount.toLocaleString()} words</div>
+              <div className="text-xs text-gray-500">{n.timeAgo}</div>
               <div className="mt-3 flex gap-2">
                 <button 
                   onClick={() => viewNote(n)}
-                  className="border rounded-lg px-4 py-2 flex-1 hover:bg-gray-50"
+                  className="rounded-lg px-4 py-2 flex-1 border transition-all"
+                  style={{ 
+                    borderColor: 'rgb(var(--border))',
+                    color: 'rgb(var(--text))',
+                    backgroundColor: 'rgb(var(--background-secondary))'
+                  }}
                 >
                   👁️ View
                 </button>
@@ -151,23 +161,37 @@ export default function Notes() {
       {/* Note Preview Modal */}
       {showModal && selectedNote && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b">
+          <div 
+            className="rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl bg-black border border-gray-800"
+          >
+            <div 
+              className="flex items-center justify-between p-4 border-b border-gray-800"
+            >
               <div>
-                <h3 className="text-xl font-semibold line-clamp-1">{selectedNote.title}</h3>
-                <p className="text-sm text-gray-500">Playlist {selectedNote.playlistId} • Video {selectedNote.videoId}</p>
+                <h3 className="text-xl font-semibold line-clamp-1 text-white">{selectedNote.title}</h3>
+                <p className="text-sm text-gray-400">Playlist {selectedNote.playlistId} • Video {selectedNote.videoId}</p>
               </div>
               <button 
                 onClick={() => setShowModal(false)}
-                className="text-gray-500 hover:text-gray-700 text-2xl"
+                className="text-2xl transition-colors text-gray-400 hover:text-white"
               >
                 ×
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
-              <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed">{selectedNote.content}</pre>
+            <div className="flex-1 overflow-y-auto p-6 bg-black">
+              <div 
+                className="whitespace-pre-wrap font-sans text-sm leading-relaxed prose prose-sm max-w-none text-white"
+                dangerouslySetInnerHTML={{
+                  __html: selectedNote.content
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
+                    .replace(/^#{1,6}\s+(.+)$/gm, (match, text) => `<h3 class="font-bold text-lg mt-4 mb-2 text-white">${text}</h3>`)
+                    .replace(/\n/g, '<br/>')
+                }}
+              />
             </div>
-            <div className="flex gap-2 p-4 border-t">
+            <div 
+              className="flex gap-2 p-4 border-t border-gray-800 bg-black"
+            >
               <button 
                 onClick={() => downloadNote(selectedNote)}
                 className="btn-primary"
@@ -176,19 +200,19 @@ export default function Notes() {
               </button>
               <button 
                 onClick={() => navigate(`/playlist/${selectedNote.playlistId}`)}
-                className="border rounded-lg px-4 py-2"
+                className="rounded-lg px-4 py-2 border border-gray-700 bg-gray-900 text-white transition-all hover:bg-gray-800"
               >
                 🎥 Go to Video
               </button>
               <button 
                 onClick={() => deleteNote(selectedNote.id)}
-                className="border rounded-lg px-4 py-2 text-red-600 hover:bg-red-50"
+                className="rounded-lg px-4 py-2 border border-red-500/30 text-red-400 transition-all hover:bg-red-500/10"
               >
                 🗑️ Delete
               </button>
               <button 
                 onClick={() => setShowModal(false)}
-                className="border rounded-lg px-4 py-2 ml-auto"
+                className="rounded-lg px-4 py-2 ml-auto border border-gray-700 bg-gray-900 text-white transition-all hover:bg-gray-800"
               >
                 Close
               </button>
