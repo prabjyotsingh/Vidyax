@@ -44,7 +44,7 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 * **📱 Fully Responsive**
   Optimized for desktop, tablet, and mobile devices.
 
----
+----
 
 ## 🛠️ Technology Stack
 
