@@ -357,7 +357,7 @@ By completing this course, you will be able to:
     alert('Notes saved successfully!');
   };
 
-  const playlists = [
+  const defaultPlaylists = [
     { 
       id: 0, 
       title: "React.js Complete Course", 
@@ -503,6 +503,39 @@ By completing this course, you will be able to:
       thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop"
     },
   ];
+
+  // Load custom playlists from localStorage
+  const customPlaylists = (() => {
+    const saved = localStorage.getItem('custom_playlists');
+    if (!saved) return [];
+    
+    // Parse and add playlistId/videoId from the URL
+    return JSON.parse(saved).map(playlist => {
+      const url = playlist.url || '';
+      let playlistId = null;
+      let videoId = null;
+      
+      // Extract playlist ID
+      const playlistMatch = url.match(/[?&]list=([^&]+)/);
+      if (playlistMatch) {
+        playlistId = playlistMatch[1];
+      } else {
+        // Extract video ID
+        const videoMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^?&]+)/);
+        if (videoMatch) {
+          videoId = videoMatch[1];
+        }
+      }
+      
+      return {
+        ...playlist,
+        playlistId,
+        videoId
+      };
+    });
+  })();
+
+  const playlists = [...defaultPlaylists, ...customPlaylists];
 
   const playlist = playlists.find(p => p.id === parseInt(id));
 
