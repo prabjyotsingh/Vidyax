@@ -4,10 +4,22 @@ import { useState, useEffect } from 'react';
 export default function Playlists() {
   const navigate = useNavigate();
   const [playlistProgress, setPlaylistProgress] = useState({});
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [customPlaylists, setCustomPlaylists] = useState(() => {
+    const saved = localStorage.getItem('custom_playlists');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [formData, setFormData] = useState({
+    title: '',
+    category: '',
+    url: '',
+    thumbnail: ''
+  });
   
   const loadProgress = () => {
     const progress = {};
-    for (let i = 0; i < 18; i++) {
+    const totalPlaylists = defaultPlaylists.length + customPlaylists.length;
+    for (let i = 0; i < totalPlaylists; i++) {
       const saved = localStorage.getItem(`playlist_${i}_progress`);
       progress[i] = saved ? parseFloat(saved) : 0;
     }
@@ -22,9 +34,27 @@ export default function Playlists() {
     const interval = setInterval(loadProgress, 1000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [customPlaylists]);
+
+  const handleAddPlaylist = (e) => {
+    e.preventDefault();
+    const newPlaylist = {
+      id: defaultPlaylists.length + customPlaylists.length,
+      title: formData.title,
+      category: formData.category,
+      url: formData.url,
+      thumbnail: formData.thumbnail || 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop'
+    };
+    
+    const updated = [...customPlaylists, newPlaylist];
+    setCustomPlaylists(updated);
+    localStorage.setItem('custom_playlists', JSON.stringify(updated));
+    
+    setFormData({ title: '', category: '', url: '', thumbnail: '' });
+    setShowAddModal(false);
+  };
   
-  const playlists = [
+  const defaultPlaylists = [
     { id: 0, title: "React.js Complete Course", category: "Web Development", url: "https://www.youtube.com/playlist?list=PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu", thumbnail: "https://i.ytimg.com/vi/CgkZ7MvWUAA/hqdefault.jpg" },
     { id: 1, title: "Python for Beginners", category: "Programming", url: "https://youtu.be/_uQrJ0TkZlc?si=5z1goNinfGDW1ypo", thumbnail: "https://i.ytimg.com/vi/_uQrJ0TkZlc/hqdefault.jpg" },
     { id: 2, title: "UI/UX Design Masterclass", category: "Design", url: "https://youtu.be/cTUD_vCrY7M?si=vO85LnxHVuiNKMuI", thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop" },
@@ -45,6 +75,8 @@ export default function Playlists() {
     { id: 17, title: "Computer Vision with OpenCV", category: "AI/ML", url: "https://www.youtube.com/watch?v=l_Mhv0rxbQk&list=PLaHodugB5x-Ddy_H951h0VHjOjfzZNCBh", thumbnail: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&h=300&fit=crop" },
   ];
 
+  const allPlaylists = [...defaultPlaylists, ...customPlaylists];
+
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -52,11 +84,16 @@ export default function Playlists() {
           <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Playlists</h1>
           <p className="text-gray-400 text-xs sm:text-sm mt-1">Continue your learning journey</p>
         </div>
-        <button className="btn-primary text-sm sm:text-base w-full sm:w-auto">+ Add Playlist</button>
+        <button 
+          className="btn-primary text-sm sm:text-base w-full sm:w-auto"
+          onClick={() => setShowAddModal(true)}
+        >
+          + Add Playlist
+        </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {playlists.map((p, i) => (
+        {allPlaylists.map((p, i) => (
           <div key={i} className="card overflow-hidden group">
             <div className="h-36 sm:h-40 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
               {p.thumbnail && (
@@ -96,6 +133,91 @@ export default function Playlists() {
           </div>
         ))}
       </div>
+
+      {/* Add Playlist Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setShowAddModal(false)}>
+          <div className="bg-gray-900 rounded-2xl p-6 sm:p-8 max-w-md w-full border border-gray-700 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-white">Add New Playlist</h2>
+              <button 
+                onClick={() => setShowAddModal(false)}
+                className="text-gray-400 hover:text-white transition-colors text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            
+            <form onSubmit={handleAddPlaylist} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Playlist Title *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.title}
+                  onChange={(e) => setFormData({...formData, title: e.target.value})}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  placeholder="e.g., Advanced React Patterns"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Category *</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.category}
+                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  placeholder="e.g., Web Development"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">YouTube URL *</label>
+                <input
+                  type="url"
+                  required
+                  value={formData.url}
+                  onChange={(e) => setFormData({...formData, url: e.target.value})}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  placeholder="https://youtube.com/playlist?list=..."
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Thumbnail URL (optional)</label>
+                <input
+                  type="url"
+                  value={formData.thumbnail}
+                  onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  placeholder="https://... (leave empty for default)"
+                />
+              </div>
+              
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData({ title: '', category: '', url: '', thumbnail: '' });
+                    setShowAddModal(false);
+                  }}
+                  className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-medium py-2.5 rounded-lg transition-all border border-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 btn-primary py-2.5 font-medium"
+                >
+                  Add Playlist
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
