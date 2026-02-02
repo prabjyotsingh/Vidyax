@@ -282,8 +282,17 @@ function Layout({ children }) {
                 </button>
                 {showSettings && (
                   <div className="absolute right-0 mt-2 w-80 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-50 overflow-hidden">
-                    <div className="p-4 border-b border-gray-700">
+                    <div className="p-4 border-b border-gray-700 flex items-center justify-between">
                       <h3 className="font-semibold text-white">Settings</h3>
+                      <button
+                        onClick={() => setShowSettings(false)}
+                        className="text-gray-400 hover:text-white transition-colors p-1 hover:bg-gray-700 rounded"
+                        aria-label="Close settings"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
                     </div>
                     <div className="p-4 space-y-4 max-h-[500px] overflow-y-auto">
                       <div>
