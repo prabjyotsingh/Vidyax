@@ -36,14 +36,61 @@ export default function Playlists() {
     return () => clearInterval(interval);
   }, [customPlaylists]);
 
+  const extractThumbnailFromUrl = (url) => {
+    try {
+      // Extract video ID from various YouTube URL formats
+      let videoId = null;
+      
+      // Playlist URLs - extract first video
+      const playlistMatch = url.match(/[?&]list=([^&]+)/);
+      if (playlistMatch) {
+        // For playlists, try to get video ID if present
+        const videoMatch = url.match(/[?&]v=([^&]+)/);
+        if (videoMatch) {
+          videoId = videoMatch[1];
+        }
+      }
+      
+      // Regular video URLs
+      if (!videoId) {
+        // youtube.com/watch?v=VIDEO_ID
+        const watchMatch = url.match(/[?&]v=([^&]+)/);
+        if (watchMatch) {
+          videoId = watchMatch[1];
+        }
+      }
+      
+      // youtu.be/VIDEO_ID
+      if (!videoId) {
+        const shortMatch = url.match(/youtu\.be\/([^?&]+)/);
+        if (shortMatch) {
+          videoId = shortMatch[1];
+        }
+      }
+      
+      // If we found a video ID, return the YouTube thumbnail
+      if (videoId) {
+        return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+      }
+      
+      return null;
+    } catch (error) {
+      return null;
+    }
+  };
+
   const handleAddPlaylist = (e) => {
     e.preventDefault();
+    
+    // Auto-extract thumbnail from YouTube URL if not provided
+    const autoThumbnail = extractThumbnailFromUrl(formData.url);
+    
     const newPlaylist = {
       id: defaultPlaylists.length + customPlaylists.length,
       title: formData.title,
       category: formData.category,
       url: formData.url,
-      thumbnail: formData.thumbnail || 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop'
+      thumbnail: formData.thumbnail || autoThumbnail || 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop'
     };
     
     const updated = [...customPlaylists, newPlaylist];
