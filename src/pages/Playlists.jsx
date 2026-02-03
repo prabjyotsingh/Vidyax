@@ -15,6 +15,7 @@ export default function Playlists() {
     url: '',
     thumbnail: ''
   });
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
   
   const loadProgress = () => {
     const progress = {};
@@ -100,6 +101,23 @@ export default function Playlists() {
     setFormData({ title: '', category: '', url: '', thumbnail: '' });
     setShowAddModal(false);
   };
+
+  const handleDeletePlaylist = (playlistId) => {
+    // Find the index in customPlaylists array
+    const customIndex = playlistId - defaultPlaylists.length;
+    if (customIndex >= 0 && customIndex < customPlaylists.length) {
+      const updated = customPlaylists.filter((_, idx) => idx !== customIndex);
+      setCustomPlaylists(updated);
+      localStorage.setItem('custom_playlists', JSON.stringify(updated));
+      
+      // Clean up associated progress data
+      localStorage.removeItem(`playlist_${playlistId}_progress`);
+      localStorage.removeItem(`playlist_${playlistId}_completed`);
+      localStorage.removeItem(`playlist_${playlistId}_timeSpent`);
+      
+      setDeleteConfirm(null);
+    }
+  };
   
   const defaultPlaylists = [
     { id: 0, title: "React.js Complete Course", category: "Web Development", url: "https://www.youtube.com/playlist?list=PL8p2I9GklV45yqvhcm8tEAzlO1ZE3BJTu", thumbnail: "https://i.ytimg.com/vi/CgkZ7MvWUAA/hqdefault.jpg" },
@@ -175,6 +193,16 @@ export default function Playlists() {
                   {playlistProgress[p.id] > 0 ? '▶️ Continue' : '🚀 Start'}
                 </button>
                 <button className="border border-gray-700 rounded-lg px-3 sm:px-4 text-gray-300 hover:bg-gray-800 transition-all text-xs sm:text-sm">📝</button>
+                {/* Show delete button only for custom playlists */}
+                {p.id >= defaultPlaylists.length && (
+                  <button 
+                    className="border border-red-700 rounded-lg px-3 sm:px-4 text-red-400 hover:bg-red-900/30 transition-all text-xs sm:text-sm"
+                    onClick={() => setDeleteConfirm(p.id)}
+                    title="Delete playlist"
+                  >
+                    🗑️
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -262,6 +290,43 @@ export default function Playlists() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm !== null && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setDeleteConfirm(null)}>
+          <div className="bg-gray-900 rounded-2xl p-6 sm:p-8 max-w-md w-full border border-red-700/50 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-white">Delete Playlist?</h2>
+              <button 
+                onClick={() => setDeleteConfirm(null)}
+                className="text-gray-400 hover:text-white transition-colors text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+            
+            <p className="text-gray-300 mb-6">
+              Are you sure you want to delete <span className="font-semibold text-white">"{allPlaylists[deleteConfirm]?.title}"</span>? 
+              This action cannot be undone and will remove all progress data.
+            </p>
+            
+            <div className="flex gap-3">
+              <button
+                onClick={() => setDeleteConfirm(null)}
+                className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-medium py-2.5 rounded-lg transition-all border border-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDeletePlaylist(deleteConfirm)}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2.5 rounded-lg transition-all shadow-lg"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
