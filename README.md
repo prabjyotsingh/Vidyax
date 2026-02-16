@@ -72,10 +72,6 @@ Designed with clean UI, smooth animations, and reusable components for scalabili
 ---
 
 ### 📦 Installation
-- ```bash
-npm install
-npm run dev
-
-
 ```bash
 npm install
+npm run dev
