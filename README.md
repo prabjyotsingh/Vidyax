@@ -22,7 +22,7 @@
 
 It’s ideal for students, self-learners, and developers who learn primarily through video playlists and want better visibility into their learning habits.
 
---
+---
 
 ## ✨ Key Features
 
