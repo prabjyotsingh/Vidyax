@@ -38,6 +38,12 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 - 🧠 **AI Notes Library**  
   Dedicated notes section to store and revisit AI-generated summaries.
 
+- 🤖 **AI Chatbot Assistant (VidyaX LLM)**  
+  Intelligent hybrid chatbot that adapts to your device:
+  - **Desktop**: Powered by TinyLlama 1.1B (WebLLM) running locally on GPU via WebGPU
+  - **Mobile**: Powered by DistilBERT (Transformers.js) for lightweight Q&A
+  - No server required, fully client-side AI
+
 - 📈 **Analytics (Planned)**  
   Chart placeholders ready for advanced insights and visual reports.
 
@@ -48,12 +54,16 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 
 ## 🛠️ Technology Stack
 
-This project is built using modern Next.js tooling:
+This project is built using modern web technologies:
 
-- **Framework**: React (JSX)  
+- **Framework**: React 18 (JSX) + Vite  
+- **Routing**: React Router v6  
 - **Styling**: Tailwind CSS  
-- **State Management**: React Hooks / Context  
-- **AI Features**: AI-powered notes & insights  
+- **State Management**: React Hooks (useState, useEffect, useCallback)  
+- **AI Features**:  
+  - **WebLLM**: TinyLlama 1.1B for desktop GPU inference
+  - **Transformers.js**: DistilBERT for mobile Q&A
+  - Client-side AI with no backend required  
 
 ---
 
@@ -85,7 +95,7 @@ npm run dev
 Open in browser:
 
 ```
-http://localhost:3000
+http://localhost:5173
 ```
 
 ---
@@ -105,14 +115,21 @@ http://localhost:3000
 ## 📂 Project Structure
 
 ```bash
-app/
-├── page.jsx            # Dashboard
-├── playlists/          # Playlists & progress
-├── progress/           # Streaks & time tracking
-├── notes/              # AI notes library
-├── analytics/          # Charts placeholders
-├── globals.css         # Tailwind & theme utilities
-└── layout.jsx          # Root layout
+src/
+├── App.jsx             # Main app with routing
+├── main.jsx            # Entry point
+├── components/
+│   ├── Card.jsx        # Reusable card component
+│   ├── ProgressBar.jsx # Progress visualization
+│   ├── Toggle.jsx      # Toggle switch component
+│   └── WebLLMChatBot.jsx  # Hybrid AI chatbot (WebLLM + Transformers.js)
+└── pages/
+    ├── Dashboard.jsx   # Main dashboard
+    ├── Playlists.jsx   # Playlists overview
+    ├── PlaylistView.jsx # Individual playlist
+    ├── Progress.jsx    # Study streaks & time tracking
+    ├── Notes.jsx       # AI notes library
+    └── Analytics.jsx   # Analytics placeholders
 ```
 
 ---
@@ -123,7 +140,7 @@ app/
 - Global styles managed in:
 
 ```
-app/globals.css
+src/App.css
 ```
 
 - Designed for easy dark-mode expansion in future versions  
