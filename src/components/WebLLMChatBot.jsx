@@ -18,8 +18,8 @@ function detectDevice() {
 }
 
 // ── TRANSFORMERS.JS ENGINE (mobile / fallback) ────────────────────────────────
-// Uses a tiny Q&A pipeline — fast, ~45MB, works everywhere
-const TJS_MODEL = "Xenova/distilbert-base-cased-distilled-squad";
+// Uses Flan-T5-small for text generation — ~80MB, instruction-tuned
+const TJS_MODEL = "Xenova/flan-t5-small";
 
 // Knowledge base the model reads from to answer questions
 const KNOWLEDGE_BASE = `
@@ -124,15 +124,15 @@ export default function HybridChatBot() {
         const { pipeline, env } = await import("https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js");
         env.allowLocalModels = false;
 
-        setLoadStep("Downloading DistilBERT (~45MB, cached after first load)...");
-        const pipe = await pipeline("question-answering", TJS_MODEL, {
+        setLoadStep("Downloading Flan-T5-small (~80MB, cached after first load)...");
+        const pipe = await pipeline("text2text-generation", TJS_MODEL, {
           progress_callback: (p) => {
             if (p.status === "progress" && p.progress) setDlProgress(Math.round(p.progress));
           },
         });
         tjsPipelineRef.current = pipe;
         setEngine("transformers");
-        setEngineLabel("DistilBERT · Transformers.js");
+        setEngineLabel("Flan-T5 · Transformers.js");
         setMessages([{ role: "bot", text: "👋 Hi! I'm VidyaX AI, your study assistant. Ask me about the app, study tips, or anything related to learning!" }]);
       }
 
@@ -184,11 +184,14 @@ export default function HybridChatBot() {
         setMessages(prev => [...prev, { role: "bot", text: full || "Couldn't generate a response, try again!" }]);
 
       } else if (engine === "transformers") {
-        // Use Q&A model to answer from knowledge base
-        const result = await tjsPipelineRef.current({ question: text, context: KNOWLEDGE_BASE });
-        const confidence = result.score || 0;
-        const answer = result.answer || "I don't have information about that in my knowledge base.";
-        setMessages(prev => [...prev, { role: "bot", text: answer, score: Math.round(confidence * 100) }]);
+        // Use text generation model
+        const result = await tjsPipelineRef.current(text, {
+          max_new_tokens: 100,
+          temperature: 0.7,
+          do_sample: true,
+        });
+        const answer = result[0]?.generated_text || "I couldn't generate a response. Please try again!";
+        setMessages(prev => [...prev, { role: "bot", text: answer }]);
       }
     } catch {
       setMessages(prev => [...prev, { role: "bot", text: "Something went wrong. Please try again!" }]);
