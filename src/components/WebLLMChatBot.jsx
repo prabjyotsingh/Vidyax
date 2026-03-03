@@ -38,6 +38,12 @@ To improve memory use mnemonics visual associations stories and chunking informa
 For better concentration eliminate distractions use time blocking take regular breaks stay hydrated and get enough sleep.
 VidyaX is fully responsive and works on mobile phones tablets and desktop computers.
 To add a playlist go to the playlists page and click the add playlist button then paste a YouTube URL.
+React JSX is a syntax extension for JavaScript that lets you write HTML-like code in React components.
+JavaScript is a programming language used for web development to create interactive websites and applications.
+HTML structures web pages with elements like div p h1 and defines the content layout.
+CSS styles web pages with colors fonts spacing and layouts to make them look visually appealing.
+Python is a beginner-friendly programming language used for data science web development automation and AI.
+Git is version control software that tracks code changes and helps developers collaborate on projects.
 `;
 
 
@@ -180,8 +186,8 @@ export default function HybridChatBot() {
       } else if (engine === "transformers") {
         // Use Q&A model to answer from knowledge base
         const result = await tjsPipelineRef.current({ question: text, context: KNOWLEDGE_BASE });
-        const answer = result.answer || "I'm not sure about that. Try asking about VidyaX features, study tips, or learning strategies!";
         const confidence = result.score || 0;
+        const answer = result.answer || "I don't have information about that in my knowledge base.";
         setMessages(prev => [...prev, { role: "bot", text: answer, score: Math.round(confidence * 100) }]);
       }
     } catch {
