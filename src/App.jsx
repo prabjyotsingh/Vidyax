@@ -6,6 +6,7 @@ import PlaylistView from './pages/PlaylistView';
 import Progress from './pages/Progress';
 import Notes from './pages/Notes';
 import Analytics from './pages/Analytics';
+import WebLLMChatBot from './components/WebLLMChatBot';
 import './App.css';
 
 function Layout({ children }) {
@@ -449,6 +450,7 @@ export default function App() {
           <Route path="/analytics" element={<Analytics />} />
         </Routes>
       </Layout>
+      <WebLLMChatBot />
     </Router>
   );
 }
