@@ -31,37 +31,18 @@ The notes page at slash notes is a knowledge base where users store study notes 
 The analytics page at slash analytics shows visual charts of study habits, completion rates, and learning insights.
 A streak is a count of consecutive days a user has studied. Missing a day resets the streak.
 Study tips include using the Pomodoro technique with 25 minutes of study and 5 minute breaks, reviewing notes within 24 hours, teaching concepts out loud, and spaced repetition practice.
-To stay motivated set small daily goals, track your streak, and remember why you started learning.
+Active recall means testing yourself instead of just rereading. Spaced repetition means reviewing material at increasing intervals over time.
+To stay motivated set small daily goals, track your streak, and remember why you started learning. Break big goals into tiny steps.
+The Feynman technique involves explaining concepts in simple terms as if teaching someone else to identify knowledge gaps.
+To improve memory use mnemonics visual associations stories and chunking information into smaller groups.
+For better concentration eliminate distractions use time blocking take regular breaks stay hydrated and get enough sleep.
 VidyaX is fully responsive and works on mobile phones tablets and desktop computers.
 To add a playlist go to the playlists page and click the add playlist button then paste a YouTube URL.
 `;
 
-// Fallback rule-based responses for when model confidence is low
-const FALLBACK_RULES = [
-  { keys: ["hello","hi","hey","greetings","sup"], reply: "Hey! 👋 I'm VidyaX AI. Ask me anything about the app or studying!" },
-  { keys: ["bye","goodbye","see you","later"], reply: "Goodbye! Keep that study streak alive! 🔥" },
-  { keys: ["thanks","thank","thx","ty","great","awesome"], reply: "You're welcome! Happy studying! 🎓" },
-  { keys: ["help","stuck","confused","what can"], reply: "Ask me about VidyaX features, study tips, streaks, notes, playlists, or analytics!" },
-  { keys: ["study tip","study better","learn faster","focus"], reply: "Top tip: Pomodoro method — 25 min study, 5 min break. Review notes within 24h. Teach it out loud! 🧠" },
-  { keys: ["motivat","lazy","procrastinat","give up","can't focus"], reply: "Start with just 5 minutes. Momentum builds itself! Your streak is worth protecting. 💪" },
-  { keys: ["streak"], reply: "Streaks count consecutive days you've studied. Visit /progress to see yours. Don't break the chain! 🔥" },
-  { keys: ["playlist","youtube","video","course"], reply: "Go to /playlists → click '+ Add Playlist' → paste any YouTube URL. Track your completion instantly! 🎬" },
-  { keys: ["note","notes","summary"], reply: "The /notes page is your personal knowledge base. Create, tag, and revisit notes anytime. 📝" },
-  { keys: ["analytic","stat","chart","progress","how am i"], reply: "Check /analytics for visual charts on your study habits, time spent, and completion rates! 📊" },
-  { keys: ["what is vidyax","about","what does"], reply: "VidyaX is a smart study tracker — track YouTube playlists, build streaks, take notes, see analytics. All in one app! 📚" },
-  { keys: ["dashboard","home","main"], reply: "Your dashboard (/) shows everything at a glance — playlists, streak, stats, and recent notes. Your study command center! 🎛️" },
-];
 
-function ruleBasedReply(input) {
-  const lower = input.toLowerCase();
-  for (const rule of FALLBACK_RULES) {
-    if (rule.keys.some(k => lower.includes(k))) return rule.reply;
-  }
-  return null;
-}
 
 // ── WEBLLM ENGINE (desktop) ───────────────────────────────────────────────────
-// Using Qwen2-0.5B - smaller & faster to load (~300MB vs 600MB TinyLlama)
 const WEBLLM_MODEL = "Qwen2-0.5B-Instruct-q4f16_1-MLC";
 
 // ── MAIN COMPONENT ─────────────────────────────────────────────────────────────
@@ -112,7 +93,7 @@ export default function HybridChatBot() {
         setLoadStep("Loading WebLLM engine...");
         const { CreateMLCEngine } = await import("https://esm.run/@mlc-ai/web-llm");
 
-        setLoadStep("Downloading Qwen2-0.5B (~300MB, cached after first load)...");
+        setLoadStep("Downloading Qwen2 0.5B (~300MB, cached after first load)...");
         const eng = await CreateMLCEngine(WEBLLM_MODEL, {
           initProgressCallback: (r) => {
             const txt = r.text || "";
@@ -128,8 +109,8 @@ export default function HybridChatBot() {
         });
         webllmRef.current = eng;
         setEngine("webllm");
-        setEngineLabel("Qwen2-0.5B · WebGPU");
-        setMessages([{ role: "bot", text: "🖥️ Running **Qwen2-0.5B** on your GPU via WebGPU! Full LLM, no server needed. Ask me anything!" }]);
+        setEngineLabel("Qwen2 0.5B · WebGPU");
+        setMessages([{ role: "bot", text: "👋 Hi! I'm VidyaX AI, your study assistant. Ask me about the app, study tips, or anything related to learning!" }]);
 
       } else {
         // ── MOBILE / FALLBACK: Transformers.js ──
@@ -146,8 +127,7 @@ export default function HybridChatBot() {
         tjsPipelineRef.current = pipe;
         setEngine("transformers");
         setEngineLabel("DistilBERT · Transformers.js");
-        const isMob = device.isMobile;
-        setMessages([{ role: "bot", text: `${isMob ? "�" : "💻"} Running **DistilBERT** (${isMob ? "mobile-optimised" : "lightweight mode"})! Real NLP model, works on any device. Ask me about VidyaX or studying!` }]);
+        setMessages([{ role: "bot", text: "👋 Hi! I'm VidyaX AI, your study assistant. Ask me about the app, study tips, or anything related to learning!" }]);
       }
 
     } catch (err) {
@@ -198,20 +178,11 @@ export default function HybridChatBot() {
         setMessages(prev => [...prev, { role: "bot", text: full || "Couldn't generate a response, try again!" }]);
 
       } else if (engine === "transformers") {
-        // Rule check first (fast)
-        const rule = ruleBasedReply(text);
-        if (rule) {
-          await new Promise(r => setTimeout(r, 400)); // tiny fake delay feels natural
-          setMessages(prev => [...prev, { role: "bot", text: rule }]);
-        } else {
-          // Real NLP Q&A on knowledge base
-          const result = await tjsPipelineRef.current({ question: text, context: KNOWLEDGE_BASE });
-          const confidence = result.score || 0;
-          let reply = confidence > 0.05
-            ? result.answer
-            : "I'm not sure about that! Try asking about VidyaX features, study tips, or playlists. 😊";
-          setMessages(prev => [...prev, { role: "bot", text: reply, score: Math.round(confidence * 100) }]);
-        }
+        // Use Q&A model to answer from knowledge base
+        const result = await tjsPipelineRef.current({ question: text, context: KNOWLEDGE_BASE });
+        const answer = result.answer || "I'm not sure about that. Try asking about VidyaX features, study tips, or learning strategies!";
+        const confidence = result.score || 0;
+        setMessages(prev => [...prev, { role: "bot", text: answer, score: Math.round(confidence * 100) }]);
       }
     } catch {
       setMessages(prev => [...prev, { role: "bot", text: "Something went wrong. Please try again!" }]);
@@ -224,12 +195,20 @@ export default function HybridChatBot() {
   // ── RENDER ────────────────────────────────────────────────────────────────────
   const isReady = engine === "webllm" || engine === "transformers";
 
-  const renderText = (text = "") =>
-    text.split(/(\*\*.*?\*\*)/g).map((p, i) =>
-      p.startsWith("**") && p.endsWith("**")
-        ? <strong key={i} style={{ color: "#c4b5fd" }}>{p.slice(2, -2)}</strong>
-        : p
-    );
+  const renderText = (text = "") => {
+    // Split by newlines first, then handle bold text
+    const lines = text.split('\n');
+    return lines.map((line, lineIdx) => (
+      <span key={lineIdx}>
+        {line.split(/(\*\*.*?\*\*)/g).map((p, i) =>
+          p.startsWith("**") && p.endsWith("**")
+            ? <strong key={i} style={{ color: "#c4b5fd" }}>{p.slice(2, -2)}</strong>
+            : p
+        )}
+        {lineIdx < lines.length - 1 && <br />}
+      </span>
+    ));
+  };
 
   const engineBadgeColor  = engine === "webllm" ? "#7c3aed" : "#0ea5e9";
   const engineBadgeLabel  = engine === "webllm" ? "🖥️ WebLLM" : "📱 Transformers.js";
@@ -290,10 +269,10 @@ export default function HybridChatBot() {
 
               <div className="text-center">
                 <p className="text-white font-bold mb-1">
-                  {device?.hasWebGPU ? "Loading Qwen2-0.5B" : "Loading DistilBERT"}
+                  {device?.hasWebGPU ? "Loading TinyLlama 1.1B" : "Loading DistilBERT"}
                 </p>
                 <p className="text-xs" style={{ color: "#475569" }}>
-                  {device?.hasWebGPU ? "Full LLM · WebGPU · ~300MB" : "NLP Model · Works on phones · ~45MB"}
+                  {device?.hasWebGPU ? "Full LLM · WebGPU · ~600MB" : "NLP Model · Works on phones · ~45MB"}
                 </p>
               </div>
 
@@ -312,7 +291,7 @@ export default function HybridChatBot() {
 
               <div className="w-full rounded-xl p-3 text-xs space-y-1" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", color: "#334155" }}>
                 {device?.hasWebGPU
-                  ? <><p>🖥️ Desktop detected — using Qwen2-0.5B (full LLM)</p><p>📥 Downloads once (~300MB), cached in browser</p><p>⚡ Runs on your GPU — no server needed</p></>
+                  ? <><p>🖥️ Desktop detected — using TinyLlama (full LLM)</p><p>📥 Downloads once, cached in browser forever</p><p>⚡ Runs on your GPU — no server needed</p></>
                   : <><p>📱 Mobile detected — using DistilBERT (lightweight)</p><p>📥 Downloads once (~45MB), cached forever</p><p>⚡ Runs on CPU — works on any phone</p></>
                 }
               </div>
@@ -409,7 +388,7 @@ export default function HybridChatBot() {
                   }
                 </div>
                 <p className="text-center text-xs mt-1" style={{ color: "#1e293b" }}>
-                  {engine === "webllm" ? "Qwen2-0.5B · WebGPU · On-device" : "DistilBERT · Transformers.js · On-device"}
+                  {engine === "webllm" ? "TinyLlama 1.1B · WebGPU · On-device" : "DistilBERT · Transformers.js · On-device"}
                 </p>
               </div>
             </>
