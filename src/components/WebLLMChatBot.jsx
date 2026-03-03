@@ -61,7 +61,8 @@ function ruleBasedReply(input) {
 }
 
 // ── WEBLLM ENGINE (desktop) ───────────────────────────────────────────────────
-const WEBLLM_MODEL = "TinyLlama-1.1B-Chat-v1.0-q4f16_1-MLC";
+// Using Qwen2-0.5B - smaller & faster to load (~300MB vs 600MB TinyLlama)
+const WEBLLM_MODEL = "Qwen2-0.5B-Instruct-q4f16_1-MLC";
 
 // ── MAIN COMPONENT ─────────────────────────────────────────────────────────────
 export default function HybridChatBot() {
@@ -111,7 +112,7 @@ export default function HybridChatBot() {
         setLoadStep("Loading WebLLM engine...");
         const { CreateMLCEngine } = await import("https://esm.run/@mlc-ai/web-llm");
 
-        setLoadStep("Downloading TinyLlama 1.1B (~600MB, cached after first load)...");
+        setLoadStep("Downloading Qwen2-0.5B (~300MB, cached after first load)...");
         const eng = await CreateMLCEngine(WEBLLM_MODEL, {
           initProgressCallback: (r) => {
             const txt = r.text || "";
@@ -127,8 +128,8 @@ export default function HybridChatBot() {
         });
         webllmRef.current = eng;
         setEngine("webllm");
-        setEngineLabel("TinyLlama 1.1B · WebGPU");
-        setMessages([{ role: "bot", text: "Hey! 🚀 I'm powered by **TinyLlama 1.1B**. Ask me anything about VidyaX or your studies!" }]);
+        setEngineLabel("Qwen2-0.5B · WebGPU");
+        setMessages([{ role: "bot", text: "🖥️ Running **Qwen2-0.5B** on your GPU via WebGPU! Full LLM, no server needed. Ask me anything!" }]);
 
       } else {
         // ── MOBILE / FALLBACK: Transformers.js ──
@@ -145,7 +146,8 @@ export default function HybridChatBot() {
         tjsPipelineRef.current = pipe;
         setEngine("transformers");
         setEngineLabel("DistilBERT · Transformers.js");
-        setMessages([{ role: "bot", text: "Hey! 🚀 I'm powered by **DistilBERT**. Ask me anything about VidyaX or your studies!" }]);
+        const isMob = device.isMobile;
+        setMessages([{ role: "bot", text: `${isMob ? "�" : "💻"} Running **DistilBERT** (${isMob ? "mobile-optimised" : "lightweight mode"})! Real NLP model, works on any device. Ask me about VidyaX or studying!` }]);
       }
 
     } catch (err) {
@@ -288,10 +290,10 @@ export default function HybridChatBot() {
 
               <div className="text-center">
                 <p className="text-white font-bold mb-1">
-                  {device?.hasWebGPU ? "Loading TinyLlama 1.1B" : "Loading DistilBERT"}
+                  {device?.hasWebGPU ? "Loading Qwen2-0.5B" : "Loading DistilBERT"}
                 </p>
                 <p className="text-xs" style={{ color: "#475569" }}>
-                  {device?.hasWebGPU ? "Full LLM · WebGPU · ~600MB" : "NLP Model · Works on phones · ~45MB"}
+                  {device?.hasWebGPU ? "Full LLM · WebGPU · ~300MB" : "NLP Model · Works on phones · ~45MB"}
                 </p>
               </div>
 
@@ -310,7 +312,7 @@ export default function HybridChatBot() {
 
               <div className="w-full rounded-xl p-3 text-xs space-y-1" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", color: "#334155" }}>
                 {device?.hasWebGPU
-                  ? <><p>🖥️ Desktop detected — using TinyLlama (full LLM)</p><p>📥 Downloads once, cached in browser forever</p><p>⚡ Runs on your GPU — no server needed</p></>
+                  ? <><p>🖥️ Desktop detected — using Qwen2-0.5B (full LLM)</p><p>📥 Downloads once (~300MB), cached in browser</p><p>⚡ Runs on your GPU — no server needed</p></>
                   : <><p>📱 Mobile detected — using DistilBERT (lightweight)</p><p>📥 Downloads once (~45MB), cached forever</p><p>⚡ Runs on CPU — works on any phone</p></>
                 }
               </div>
@@ -407,7 +409,7 @@ export default function HybridChatBot() {
                   }
                 </div>
                 <p className="text-center text-xs mt-1" style={{ color: "#1e293b" }}>
-                  {engine === "webllm" ? "TinyLlama 1.1B · WebGPU · On-device" : "DistilBERT · Transformers.js · On-device"}
+                  {engine === "webllm" ? "Qwen2-0.5B · WebGPU · On-device" : "DistilBERT · Transformers.js · On-device"}
                 </p>
               </div>
             </>
