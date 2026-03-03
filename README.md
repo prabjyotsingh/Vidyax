@@ -1,17 +1,17 @@
 <div align="center">
 
-  <h1>📚 VidyaX AI— Playlists Tracker</h1>
+# 📚 VidyaX AI — Playlists Tracker
 
-**Track your learning playlists, monitor progress, and stay consistent**
+**Track your learning playlists, monitor progress, and stay consistent**  
 *Built for focused study, streaks, and analytics*
+
 <p>
   <img src="https://img.shields.io/badge/React-JSX-61dafb?style=flat&logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-38bdf8?style=flat&logo=tailwindcss" alt="Tailwind CSS" />
-<img src="https://img.shields.io/badge/AI-Powered-blueviolet?style=flat&logo=openai" alt="AI Powered" />
-  <a href="https://vidyaxai.vercel.app/" target="_blank">
-    <img src="https://img.shields.io/badge/Live_Demo-Visit_Site-green?style=flat&logo=vercel" alt="Live Demo" />
-  </a>
+  <img src="https://img.shields.io/badge/AI-Powered-blueviolet?style=flat&logo=openai" alt="AI Powered" />
+  <img src="https://img.shields.io/badge/Live_Demo-Available-green?style=flat&logo=vercel" alt="Live Demo" />
 </p>
+
 </div>
 
 ---
@@ -26,35 +26,34 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 
 ## ✨ Key Features
 
-* **📊 Dashboard Overview**
+- 📊 **Dashboard Overview**  
   Centralized dashboard showing study stats and playlists at a glance.
 
-* **🎬 Playlist Tracking**
+- 🎬 **Playlist Tracking**  
   Track individual playlists and monitor completion progress visually.
 
-* **🔥 Progress & Streaks**
+- 🔥 **Progress & Streaks**  
   View daily study streaks and time distribution to stay consistent.
 
-* **🧠 AI Notes Library**
+- 🧠 **AI Notes Library**  
   Dedicated notes section to store and revisit AI-generated summaries.
 
-* **📈 Analytics (Planned)**
+- 📈 **Analytics (Planned)**  
   Chart placeholders ready for advanced insights and visual reports.
 
-* **📱 Fully Responsive**
+- 📱 **Fully Responsive**  
   Optimized for desktop, tablet, and mobile devices.
 
-----
+---
 
 ## 🛠️ Technology Stack
 
 This project is built using modern Next.js tooling:
 
-- **Framework**: React (JSX)
-- **Styling**: Tailwind CSS
-- **State Management**: React Hooks / Context
-- **AI Features**: AI-powered notes & insights
-
+- **Framework**: React (JSX)  
+- **Styling**: Tailwind CSS  
+- **State Management**: React Hooks / Context  
+- **AI Features**: AI-powered notes & insights  
 
 ---
 
@@ -62,42 +61,44 @@ This project is built using modern Next.js tooling:
 
 Follow these steps to run the project locally.
 
-### Prerequisites
+### 📌 Prerequisites
 
-* **Node.js** (v16 or higher)
-* **npm** (or yarn / pnpm)
+- Node.js (v16 or higher)  
+- npm (or yarn / pnpm)  
 
-### Installation
+---
 
-1. **Install dependencies**
+### 📦 Installation
 
-   ```bash
-   npm install
-   ```
+Install dependencies:
 
-2. **Run the development server**
+```bash
+npm install
+```
 
-   ```bash
-   npm run dev
-   ```
+### ▶️ Run the Development Server
 
-3. **Open in browser**
+```bash
+npm run dev
+```
 
-   ```text
-   http://localhost:3000
-   ```
+Open in browser:
+
+```
+http://localhost:3000
+```
 
 ---
 
 ## 🧭 Available Pages
 
-| Route        | Description                             |
-| ------------ | --------------------------------------- |
-| `/`          | Dashboard with stats and playlists grid |
-| `/playlists` | All playlists with progress tracking    |
-| `/progress`  | Study streaks & time distribution       |
-| `/notes`     | AI notes library                        |
-| `/analytics` | Analytics & charts (placeholders)       |
+| Route        | Description                              |
+| ------------ | ---------------------------------------- |
+| `/`          | Dashboard with stats and playlists grid  |
+| `/playlists` | All playlists with progress tracking     |
+| `/progress`  | Study streaks & time distribution        |
+| `/notes`     | AI notes library                         |
+| `/analytics` | Analytics & charts (placeholders)        |
 
 ---
 
@@ -118,21 +119,22 @@ app/
 
 ## 🎨 Styling & Theming
 
-* Tailwind utility classes for rapid UI development
-* Global styles managed in:
+- Tailwind utility classes for rapid UI development  
+- Global styles managed in:
 
-  ```
-  app/globals.css
-  ```
-* Designed for easy dark-mode expansion in future versions
+```
+app/globals.css
+```
+
+- Designed for easy dark-mode expansion in future versions  
 
 ---
 
 ## 🧪 Project Status
 
-* Core pages implemented
-* Analytics charts planned
-* Backend & persistence to be added
+- Core pages implemented  
+- Analytics charts planned  
+- Backend & persistence to be added  
 
 ---
 
@@ -140,11 +142,16 @@ app/
 
 Contributions are welcome!
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+1. Fork the repository  
+2. Create a feature branch:
+
+```bash
+git checkout -b feature/new-feature
+```
+
+3. Commit your changes  
+4. Push to the branch  
+5. Open a Pull Request  
 
 ---
 
