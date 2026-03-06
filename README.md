@@ -24,7 +24,7 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features.
 
 - 📊 **Dashboard Overview**  
   Centralized dashboard showing study stats and playlists at a glance.
