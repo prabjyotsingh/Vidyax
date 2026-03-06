@@ -5,7 +5,7 @@ export default function StudyBuddy() {
   const [isOpen,     setIsOpen]     = useState(false);
   const [messages,   setMessages]   = useState([{
     role: "bot",
-    text: "🔥💥 YO YO YO — **StudyBuddy is LIVE!!**\n\nI woke up today and chose VIOLENCE against ignorance. 😤📚\n\nAsk me ANYTHING — VidyaX help, coding, math, science, study tips. I handle it ALL. Let's GET IT! 🚀",
+    text: "🔥💥 YO YO YO — **StudyBuddy is LIVE!!**\n\I woke up today and chose VIOLENCE against ignorance. 😤📚\nAsk me ANYTHING — VidyaX help, coding, math, science, study tips. I handle it ALL. Let's GET IT! 🚀",
   }]);
   const [input,      setInput]      = useState("");
   const [thinking,   setThinking]   = useState(false);
@@ -136,9 +136,8 @@ export default function StudyBuddy() {
             </div>
             <div style={{ flex:1, minWidth:0 }}>
               <p style={{ color:"white", fontWeight:700, fontSize:14, margin:0 }}>StudyBuddy</p>
-              <p style={{ color:"#fb923c", fontSize:11, margin:0 }}>Llama 3 · Groq · Always ready 🟢</p>
+              <p style={{ color:"#fb923c", fontSize:11, margin:0 }}>Your AI study assistant 🟢</p>
             </div>
-            <span style={{ fontSize:11, fontWeight:700, padding:"3px 9px", borderRadius:8, background:"rgba(249,115,22,0.15)", color:"#fb923c", flexShrink:0 }}>⚡ Groq</span>
           </div>
 
           {/* Messages */}
@@ -203,7 +202,7 @@ export default function StudyBuddy() {
                   </button>
               }
             </div>
-            <p style={{ textAlign:"center", fontSize:11, marginTop:5, color:"#1e293b" }}>StudyBuddy · Powered by Groq · Works everywhere</p>
+            <p style={{ textAlign:"center", fontSize:11, marginTop:5, color:"#1e293b" }}>StudyBuddy · Your AI assistant</p>
           </div>
         </div>
       )}
