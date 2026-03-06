@@ -38,11 +38,12 @@ It’s ideal for students, self-learners, and developers who learn primarily thr
 - 🧠 **AI Notes Library**  
   Dedicated notes section to store and revisit AI-generated summaries.
 
-- 🤖 **AI Chatbot Assistant (VidyaX LLM)**  
-  Intelligent hybrid chatbot that adapts to your device:
-  - **Desktop**: Powered by TinyLlama 1.1B (WebLLM) running locally on GPU via WebGPU
-  - **Mobile**: Powered by DistilBERT (Transformers.js) for lightweight Q&A
-  - No server required, fully client-side AI
+- 🤖 **AI Chatbot Assistant (StudyBuddy)**  
+  Intelligent AI chatbot powered by Groq:
+  - **Powered by**: Llama 3 8B via Groq API (ultra-fast inference)
+  - Answers questions about the app, study tips, coding, and more
+  - Real-time streaming responses for instant feedback
+  - Always available with cloud-based processing
 
 - 📈 **Analytics (Planned)**  
   Chart placeholders ready for advanced insights and visual reports.
@@ -61,9 +62,9 @@ This project is built using modern web technologies:
 - **Styling**: Tailwind CSS  
 - **State Management**: React Hooks (useState, useEffect, useCallback)  
 - **AI Features**:  
-  - **WebLLM**: TinyLlama 1.1B for desktop GPU inference
-  - **Transformers.js**: DistilBERT for mobile Q&A
-  - Client-side AI with no backend required  
+  - **Groq AI**: Ultra-fast Llama 3 8B inference
+  - Real-time streaming responses
+  - Server-side processing via Express API  
 
 ---
 
@@ -80,23 +81,53 @@ Follow these steps to run the project locally.
 
 ### 📦 Installation
 
-Install dependencies:
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-### ▶️ Run the Development Server
+2. Set up your Groq API key:
+
+Create a `.env` file in the project root:
 
 ```bash
+cp .env.example .env
+```
+
+Then edit `.env` and add your Groq API key:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+> 🔑 Get your free API key at [console.groq.com](https://console.groq.com/keys)
+
+### ▶️ Run the Development Server
+
+Run both the frontend and backend server:
+
+```bash
+npm run dev:all
+```
+
+Or run them separately:
+
+```bash
+# Terminal 1 - Frontend (Vite)
 npm run dev
+
+# Terminal 2 - Backend (Express API)
+npm run server
 ```
 
 Open in browser:
 
 ```
-http://localhost:5173
+http://localhost:3000
 ```
+
+The frontend runs on port 3000, and the API server runs on port 3001.
 
 ---
 
@@ -122,7 +153,7 @@ src/
 │   ├── Card.jsx        # Reusable card component
 │   ├── ProgressBar.jsx # Progress visualization
 │   ├── Toggle.jsx      # Toggle switch component
-│   └── WebLLMChatBot.jsx  # Hybrid AI chatbot (WebLLM + Transformers.js)
+│   └── StudyBuddy.jsx     # AI chatbot powered by Groq
 └── pages/
     ├── Dashboard.jsx   # Main dashboard
     ├── Playlists.jsx   # Playlists overview
