@@ -77,7 +77,6 @@ Follow these steps to run the project locally.
 
 - Node.js (v16 or higher)  
 - npm (or yarn / pnpm)  
-
 ---
 
 ### 📦 Installation
