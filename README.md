@@ -140,7 +140,7 @@ The frontend runs on port 3000, and the API server runs on port 3001.
 | `/notes`     | AI notes library                         |
 | `/analytics` | Analytics & charts (placeholders)        |
 
----
+----
 
 ## 📂 Project Structure
 
